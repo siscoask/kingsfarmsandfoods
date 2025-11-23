@@ -1,0 +1,2135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>King's Farm and Foods - Care & Tips</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Raleway:wght@300;400;600&display=swap" rel="stylesheet">
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* CSS Variables for Colors (Modern Farm Theme) - Copied from index.html */
+        :root {
+            --bg-primary: #F8FBF8; /* Light Greenish White */
+            --bg-secondary: #EDF5ED; /* Soft Green for sections */
+            --accent-primary: #2E8B57; /* Sea Green */
+            --accent-secondary: #4CAF50; /* Fresh Green for accents */
+            --accent-gold: #C9A227; /* Muted Gold for accents */
+            --text-primary: #1A331A; /* Dark Green for main text */
+            --text-secondary: #3D5C3D; /* Medium Green for secondary text */
+            --success: #2E8B57; /* Green for success */
+            --error: #D32F2F; /* Red for errors */
+            --footer-bg: #1B3C1B; /* Dark Green for Footer */
+            --footer-text: #E8F5E8; /* Light text for footer */
+            --card-bg: #FFFFFF; /* White for cards */
+            --shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            --shadow-hover: 0 8px 24px rgba(0, 0, 0, 0.12);
+        }
+        .dark-mode {
+            --bg-primary: #1A1F1A; /* Dark Gray-Green for modern base */
+            --bg-secondary: #252B25; /* Slightly lighter gray-green for sections */
+            --accent-primary: #3CB371;
+            --accent-secondary: #4CAF50;
+            --accent-gold: #D4AF37;
+            --text-primary: #E8F5E8; /* Light Green for main text */
+            --text-secondary: #C8E6C8; /* Light Gray-Green for secondary text */
+            --success: #4CAF50;
+            --error: #F44336;
+            --footer-bg: #0F1A0F;
+            --footer-text: #E8F5E8;
+            --card-bg: #252B25;
+            --shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            --shadow-hover: 0 8px 24px rgba(0, 0, 0, 0.3);
+        }
+        /* General Styles */
+        * { 
+            margin: 0; 
+            padding: 0; 
+            box-sizing: border-box; 
+        }
+        html {
+            scroll-behavior: smooth;
+        }
+        body {
+            font-family: 'Raleway', sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+            padding-bottom: 80px;
+        }
+        /* Header - Copied from index.html */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s;
+        }
+        .dark-mode header {
+            background-color: rgba(37, 43, 37, 0.95);
+        }
+        .top-bar {
+            background: var(--accent-primary);
+            color: #FFFFFF;
+            text-align: center;
+            padding: 0.5rem;
+            font-size: 0.9rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+        }
+        .main-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: var(--accent-primary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .logo i {
+            font-size: 1.8rem;
+        }
+        .mobile-logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--accent-primary);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            display: none;
+        }
+        .nav-container {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+        nav { 
+            display: flex; 
+            gap: 1.5rem; 
+            position: relative; 
+        }
+        nav a {
+            color: var(--text-primary);
+            text-decoration: none;
+            font-weight: 500;
+            position: relative;
+            padding: 0.2rem 0;
+            transition: color 0.3s;
+        }
+        nav a::before {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--accent-primary), var(--accent-gold));
+            transition: width 0.4s ease;
+        }
+        nav a:hover::before {
+            width: 100%;
+        }
+        nav a:hover {
+            color: var(--accent-primary);
+        }
+        .header-icons { 
+            display: flex; 
+            gap: 1.2rem; 
+            align-items: center; 
+        }
+        .cart-icon { 
+            position: relative; 
+            cursor: pointer; 
+            font-size: 1.3rem; 
+            color: var(--text-primary);
+            transition: color 0.3s;
+        }
+        .cart-icon:hover { 
+            color: var(--accent-primary); 
+        }
+        #cart-count {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: var(--accent-primary);
+            color: #FFFFFF;
+            border-radius: 50%;
+            padding: 2px 6px;
+            font-size: 0.7rem;
+            min-width: 18px;
+            text-align: center;
+        }
+        #dark-mode-toggle { 
+            cursor: pointer; 
+            font-size: 1.3rem; 
+            color: var(--text-primary);
+            transition: color 0.3s;
+        }
+        #dark-mode-toggle:hover { 
+            color: var(--accent-primary); 
+        }
+        .hamburger { 
+            display: none; 
+            font-size: 1.5rem; 
+            cursor: pointer; 
+            color: var(--text-primary); 
+        }
+        .hamburger:hover { 
+            color: var(--accent-primary); 
+        }
+        /* Mobile Bottom Navigation - Copied from index.html */
+        .mobile-bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: var(--card-bg);
+            display: none;
+            justify-content: space-around;
+            align-items: center;
+            padding: 0.8rem 0;
+            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+            z-index: 1001;
+            border-top: 1px solid var(--bg-secondary);
+        }
+        .mobile-nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-decoration: none;
+            color: var(--text-secondary);
+            font-size: 0.8rem;
+            gap: 4px;
+            transition: color 0.3s;
+            flex: 1;
+        }
+        .mobile-nav-item i {
+            font-size: 1.2rem;
+        }
+        .mobile-nav-item.active {
+            color: var(--accent-primary);
+        }
+        .mobile-nav-item:hover {
+            color: var(--accent-primary);
+        }
+        /* Bottom Sheet - Copied from index.html */
+        .bottom-sheet {
+            position: fixed;
+            bottom: -100%;
+            left: 0;
+            width: 100%;
+            background: var(--card-bg);
+            border-radius: 20px 20px 0 0;
+            box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.15);
+            z-index: 1002;
+            transition: bottom 0.3s ease;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+        .bottom-sheet.active {
+            bottom: 0;
+        }
+        .sheet-handle {
+            width: 40px;
+            height: 4px;
+            background: var(--text-secondary);
+            border-radius: 2px;
+            margin: 12px auto;
+            opacity: 0.5;
+        }
+        .sheet-content {
+            padding: 0 1.5rem 2rem;
+        }
+        .sheet-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem 0;
+            text-decoration: none;
+            color: var(--text-primary);
+            border-bottom: 1px solid var(--bg-secondary);
+            transition: color 0.3s;
+        }
+        .sheet-item:last-child {
+            border-bottom: none;
+        }
+        .sheet-item i {
+            font-size: 1.2rem;
+            width: 24px;
+            text-align: center;
+        }
+        .sheet-item:hover {
+            color: var(--accent-primary);
+        }
+        .sheet-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1001;
+            display: none;
+        }
+        .sheet-overlay.active {
+            display: block;
+        }
+        /* Hero Section - Copied and adapted from index.html */
+        .hero {
+            position: relative;
+            height: 100vh;
+            min-height: 600px;
+            overflow: hidden;
+            text-align: center;
+            background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+            margin-top: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.3);
+            z-index: 1;
+        }
+        .hero-carousel {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+        .hero-slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 1s ease;
+        }
+        .hero-slide.active {
+            opacity: 1;
+        }
+        .hero-slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            animation: zoomIn 15s ease-in-out infinite;
+        }
+        @keyframes zoomIn {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            color: #FFFFFF;
+            text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            width: 90%;
+            max-width: 800px;
+            padding: 2rem;
+        }
+        .hero-content h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 4rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            animation: fadeInUp 1s ease-out;
+        }
+        .hero-content p {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            animation: fadeInUp 1s ease-out 0.3s both;
+        }
+        .hero-content button {
+            background: var(--accent-gold);
+            color: #FFFFFF;
+            border: none;
+            padding: 1.2rem 2.5rem;
+            font-size: 1.2rem;
+            cursor: pointer;
+            border-radius: 30px;
+            transition: all 0.3s;
+            animation: fadeInUp 1s ease-out 0.6s both;
+            font-weight: 600;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+        .hero-content button:hover {
+            background: #D9B43A;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25);
+        }
+        @keyframes fadeInUp {
+            0% { 
+                opacity: 0; 
+                transform: translateY(30px); 
+            }
+            100% { 
+                opacity: 1; 
+                transform: translateY(0); 
+            }
+        }
+        /* Main Content */
+        main { 
+            padding: 4rem 2rem; 
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .section {
+            position: relative;
+            margin: 5rem 0;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+        .section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.8rem;
+            color: var(--accent-primary);
+            margin-bottom: 2rem;
+            text-align: center;
+            position: relative;
+            padding-bottom: 1.5rem;
+        }
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(to right, var(--accent-primary), var(--accent-gold));
+            border-radius: 2px;
+        }
+        .section p {
+            font-size: 1.2rem;
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 2rem;
+            color: var(--text-secondary);
+        }
+        /* Care Tips Filter - Redesigned to be horizontal pills */
+        .care-tips-filter {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin: 2rem 0 3rem;
+            flex-wrap: wrap;
+            max-width: 800px;
+        }
+        .care-tips-filter button {
+            background: var(--card-bg);
+            border: 2px solid var(--accent-primary);
+            color: var(--accent-primary);
+            padding: 0.5rem 1.2rem;
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        .care-tips-filter button.active, .care-tips-filter button:hover {
+            background: var(--accent-primary);
+            color: #FFFFFF;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        /* Care Tips Grid - Copied and adapted from recipes */
+        .care-tips-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        .tip-card {
+            background: var(--card-bg);
+            padding: 1.5rem;
+            border-radius: 15px;
+            text-align: center;
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow);
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            overflow: hidden;
+        }
+        .tip-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-hover);
+        }
+        .tip-card .image-wrapper {
+            position: relative;
+            width: 100%;
+            padding-top: 75%;
+            margin-bottom: 1.5rem;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        .tip-card img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+            border-radius: 10px;
+            transition: transform 0.5s;
+        }
+        .tip-card:hover img {
+            transform: scale(1.1);
+        }
+        .tip-card h3 {
+            font-size: 1.4rem;
+            margin: 0.5rem 0;
+            color: var(--accent-primary);
+        }
+        .tip-card .tags {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            margin: 0.5rem 0;
+            flex-wrap: wrap;
+        }
+        .tip-card .tag {
+            background: var(--bg-secondary);
+            color: var(--text-secondary);
+            padding: 0.3rem 0.6rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+        .tip-card p { 
+            font-size: 1rem; 
+            margin-bottom: 1.5rem; 
+            color: var(--text-secondary);
+            flex-grow: 1;
+        }
+        .tip-card button {
+            background: var(--accent-primary);
+            color: #FFFFFF;
+            border: none;
+            padding: 0.9rem 1.5rem;
+            cursor: pointer;
+            border-radius: 30px;
+            transition: all 0.3s;
+            font-weight: 600;
+            width: 100%;
+            font-size: 1rem;
+        }
+        .tip-card button:hover {
+            background: var(--accent-secondary);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        /* Featured Tip - Added for visual interest */
+        .featured-tip {
+            background: var(--bg-secondary);
+            padding: 2rem;
+            border-radius: 20px;
+            text-align: center;
+            margin: 4rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+        .featured-content {
+            position: relative;
+            z-index: 1;
+        }
+        .featured-tip h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.2rem;
+            color: var(--accent-primary);
+            margin-bottom: 1.5rem;
+        }
+        .featured-tip p {
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto 2rem;
+            color: var(--text-secondary);
+        }
+        .featured-tip .tip-card {
+            background: var(--card-bg);
+            box-shadow: var(--shadow-hover);
+            padding: 1.2rem;
+        }
+        /* Expert Advice Section - Added for detailed content */
+        .expert-advice {
+            background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+            color: #FFFFFF;
+            padding: 2.5rem;
+            border-radius: 20px;
+            margin: 4rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+        .expert-advice::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.1);
+            z-index: 0;
+        }
+        .expert-advice-content {
+            position: relative;
+            z-index: 1;
+        }
+        .expert-advice h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        .expert-advice p {
+            font-size: 1.1rem;
+            max-width: 700px;
+            margin: 0 auto;
+            font-style: italic;
+        }
+        .advice-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        .advice-item {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 1.5rem;
+            border-radius: 15px;
+            text-align: center;
+        }
+        .advice-item i {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: var(--accent-gold);
+        }
+        .advice-item h4 {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+        .advice-item p {
+            font-size: 1rem;
+            font-style: normal;
+        }
+        /* Cart & Checkout Modals - Copied from index.html */
+        #cart-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+        }
+        .cart-container {
+            background: var(--card-bg);
+            padding: 2.5rem;
+            border-radius: 20px;
+            max-width: 700px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            position: relative;
+        }
+        .cart-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 1.5rem;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+        .cart-close:hover {
+            color: var(--accent-primary);
+        }
+        #cart-modal h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.2rem;
+            color: var(--accent-primary);
+            margin-bottom: 1.5rem;
+            text-align: center;
+            padding-right: 30px;
+        }
+        #cart-items {
+            list-style: none;
+            margin-bottom: 2rem;
+        }
+        #cart-items li {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.2rem;
+            margin-bottom: 1rem;
+            background: var(--bg-secondary);
+            border-radius: 10px;
+            font-size: 1.1rem;
+        }
+        #cart-items li span {
+            flex: 1;
+            font-weight: 500;
+        }
+        #cart-items li .quantity-controls {
+            display: flex;
+            gap: 0.8rem;
+            align-items: center;
+        }
+        #cart-items li button {
+            background: var(--accent-primary);
+            color: #FFFFFF;
+            border: none;
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 1rem;
+            transition: background 0.3s;
+            min-width: 40px;
+        }
+        #cart-items li button:hover {
+            background: var(--accent-secondary);
+        }
+        #cart-items li button.remove {
+            background: var(--error);
+        }
+        #cart-items li button.remove:hover {
+            background: #E53935;
+        }
+        #cart-total {
+            font-size: 1.5rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 2rem;
+            color: var(--accent-primary);
+            padding: 1rem;
+            background: var(--bg-secondary);
+            border-radius: 10px;
+        }
+        .cart-actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+        }
+        .cart-actions button {
+            background: var(--accent-primary);
+            color: #FFFFFF;
+            border: none;
+            padding: 1rem 2rem;
+            cursor: pointer;
+            border-radius: 30px;
+            font-size: 1.1rem;
+            transition: all 0.3s;
+            font-weight: 600;
+            flex: 1;
+            max-width: 200px;
+        }
+        .cart-actions button:hover {
+            background: var(--accent-secondary);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        /* Checkout Modal - Copied from index.html */
+        #checkout-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+        }
+        .checkout-container {
+            background: var(--card-bg);
+            padding: 2.5rem;
+            border-radius: 20px;
+            max-width: 800px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            position: relative;
+        }
+        .checkout-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 1.5rem;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+        .checkout-close:hover {
+            color: var(--accent-primary);
+        }
+        #checkout-modal h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            color: var(--accent-primary);
+            margin-bottom: 1.5rem;
+            text-align: center;
+            padding-right: 30px;
+        }
+        #order-summary {
+            background: var(--bg-secondary);
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin-bottom: 2rem;
+        }
+        #order-summary h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            color: var(--accent-primary);
+            margin-bottom: 1rem;
+        }
+        #order-summary ul {
+            list-style: none;
+            margin-bottom: 1rem;
+        }
+        #order-summary li {
+            font-size: 1rem;
+            margin-bottom: 0.5rem;
+            display: flex;
+            justify-content: space-between;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        }
+        .dark-mode #order-summary li {
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        #order-summary p {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--accent-primary);
+            text-align: right;
+            margin-top: 1rem;
+        }
+        .bank-details {
+            margin-bottom: 2rem;
+        }
+        .bank-details h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            color: var(--accent-primary);
+            margin-bottom: 1rem;
+        }
+        .bank-details .bank-card {
+            background: var(--bg-secondary);
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin-bottom: 1.5rem;
+            transition: all 0.3s ease;
+            border-left: 4px solid var(--accent-primary);
+        }
+        .bank-details .bank-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow);
+        }
+        .bank-details p {
+            font-size: 1.1rem;
+            margin: 0.5rem 0;
+        }
+        .bank-details .copy-btn {
+            background: var(--accent-primary);
+            color: #FFFFFF;
+            border: none;
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 0.9rem;
+            transition: background 0.3s;
+            margin-left: 0.5rem;
+        }
+        .bank-details .copy-btn:hover {
+            background: var(--accent-secondary);
+        }
+        .bank-details .copy-btn.copied {
+            background: var(--success);
+        }
+        .checkout-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+        .checkout-form .file-upload {
+            position: relative;
+            padding: 1.5rem;
+            border: 2px dashed var(--accent-primary);
+            border-radius: 10px;
+            text-align: center;
+            background: var(--bg-secondary);
+            transition: background 0.3s;
+        }
+        .checkout-form .file-upload:hover {
+            background: var(--bg-primary);
+        }
+        .checkout-form .file-upload input[type="file"] {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            cursor: pointer;
+        }
+        .checkout-form .file-upload label {
+            font-size: 1.1rem;
+            color: var(--text-primary);
+            cursor: pointer;
+        }
+        .checkout-form .file-upload i {
+            font-size: 2rem;
+            color: var(--accent-primary);
+            margin-bottom: 0.5rem;
+        }
+        .checkout-form .actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .checkout-form button {
+            background: var(--accent-primary);
+            color: #FFFFFF;
+            border: none;
+            padding: 1rem 2rem;
+            cursor: pointer;
+            border-radius: 30px;
+            font-size: 1.1rem;
+            transition: all 0.3s;
+            font-weight: 600;
+            flex: 1;
+            min-width: 180px;
+            max-width: 250px;
+        }
+        .checkout-form button:hover {
+            background: var(--accent-secondary);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .checkout-form button.cancel {
+            background: var(--text-secondary);
+        }
+        .checkout-form button.cancel:hover {
+            background: var(--text-primary);
+        }
+        #checkout-message {
+            text-align: center;
+            margin-top: 1rem;
+            font-weight: 600;
+        }
+        /* Notification Styling */
+        #cart-notification, #copy-notification {
+            display: none;
+            position: fixed;
+            top: 100px;
+            right: 20px;
+            background: var(--success);
+            color: #fff;
+            padding: 1rem 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            z-index: 2000;
+            font-weight: 600;
+        }
+        /* Loading Animation */
+        .loading {
+            position: relative;
+            pointer-events: none;
+        }
+        .loading::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 24px;
+            height: 24px;
+            border: 3px solid #FFFFFF;
+            border-top: 3px solid transparent;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            transform: translate(-50%, -50%);
+        }
+        @keyframes spin {
+            0% { transform: translate(-50%, -50%) rotate(0deg); }
+            100% { transform: translate(-50%, -50%) rotate(360deg); }
+        }
+        /* Footer - Copied from index.html */
+        footer {
+            background: var(--footer-bg);
+            color: var(--footer-text);
+            padding: 4rem 1rem 2rem;
+            margin-top: 4rem;
+        }
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 2.5rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        footer h3 {
+            font-family: 'Playfair Display', serif;
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #FFFFFF;
+        }
+        footer p, footer a {
+            color: var(--footer-text);
+            text-decoration: none;
+            margin: 0.7rem 0;
+            transition: all 0.3s ease;
+        }
+        footer a:hover {
+            color: var(--accent-gold);
+            padding-left: 5px;
+        }
+        footer p i { 
+            margin-right: 0.5rem; 
+            color: var(--accent-gold); 
+            width: 20px;
+            text-align: center;
+        }
+        footer form { 
+            display: flex; 
+            flex-direction: column; 
+            gap: 0.8rem; 
+        }
+        footer input {
+            padding: 0.8rem;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 5px;
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--footer-text);
+            transition: box-shadow 0.3s;
+        }
+        footer input:focus {
+            box-shadow: 0 0 0 2px var(--accent-gold);
+            outline: none;
+        }
+        footer button {
+            background: var(--accent-gold);
+            color: #FFFFFF;
+            border: none;
+            padding: 0.8rem;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background 0.3s;
+            font-weight: 600;
+        }
+        footer button:hover {
+            background: #D9B43A;
+        }
+        .form-message { 
+            text-align: center; 
+            margin-top: 0.5rem; 
+            font-size: 0.9rem;
+        }
+        .success { 
+            color: var(--success); 
+        }
+        .error { 
+            color: var(--error); 
+        }
+        .social-icons { 
+            display: flex; 
+            gap: 1rem; 
+            margin-top: 1rem;
+        }
+        .social-icons a {
+            font-size: 1.5rem;
+            color: var(--footer-text);
+            transition: all 0.3s;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+        }
+        .social-icons a:hover {
+            color: var(--accent-gold);
+            transform: translateY(-3px);
+            background: rgba(255, 255, 255, 0.2);
+        }
+        .back-to-top {
+            text-align: center;
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .back-to-top a {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 0.8rem 1.5rem;
+            background: var(--accent-gold);
+            color: #FFFFFF;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        .back-to-top a:hover {
+            background: #D9B43A;
+            transform: translateY(-3px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        .copyright {
+            text-align: center;
+            margin-top: 2rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.7);
+        }
+        /* Responsive Design - Copied from index.html */
+        @media (max-width: 1024px) {
+            .main-header { padding: 1rem; }
+            .logo { font-size: 1.8rem; }
+            .hero-content h1 { font-size: 3.5rem; }
+            .hero-content p { font-size: 1.3rem; }
+            .hero-content button { padding: 1rem 2rem; font-size: 1.1rem; }
+        }
+        @media (max-width: 768px) {
+            .top-bar {
+                display: none;
+            }
+            .main-header { 
+                padding: 0.8rem 1rem; 
+            }
+            .logo {
+                display: none;
+            }
+            .mobile-logo {
+                display: flex;
+            }
+            .nav-container {
+                display: none;
+            }
+            .header-icons {
+                gap: 1rem;
+            }
+            #dark-mode-toggle {
+                display: none;
+            }
+            .hamburger { 
+                display: none;
+            }
+            .mobile-bottom-nav {
+                display: flex;
+            }
+            .hero {
+                height: 70vh;
+                min-height: 500px;
+                margin-top: 60px;
+            }
+            .hero-content h1 { font-size: 2.5rem; }
+            .hero-content p { font-size: 1.1rem; }
+            .hero-content button { padding: 0.9rem 1.8rem; font-size: 1rem; }
+            main { padding: 2rem 1rem; }
+            .section { margin: 3rem 0; }
+            .section-title { font-size: 2rem; }
+            .section p { font-size: 1rem; }
+            .care-tips-grid { grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; }
+            .tip-card { padding: 1.2rem; }
+            .tip-card h3 { font-size: 1.2rem; }
+            .tip-card p { font-size: 0.9rem; }
+            .tip-card button { padding: 0.8rem 1.2rem; font-size: 0.9rem; }
+            .care-tips-filter { gap: 0.5rem; }
+            .care-tips-filter button { padding: 0.4rem 0.8rem; font-size: 0.9rem; }
+            .featured-tip, .expert-advice {
+                padding: 1.5rem;
+            }
+            .cart-container, .checkout-container {
+                padding: 1.5rem;
+                width: 95%;
+            }
+            #cart-modal h2, #checkout-modal h2 { font-size: 1.8rem; }
+            footer { padding: 3rem 1rem 1.5rem; }
+            .footer-content { gap: 2rem; }
+            footer h3 { font-size: 1.3rem; }
+            footer p, footer a { font-size: 0.9rem; }
+        }
+        @media (max-width: 480px) {
+            .main-header { padding: 0.5rem; }
+            .mobile-logo { font-size: 1.3rem; }
+            .hero {
+                height: 60vh;
+                min-height: 400px;
+                margin-top: 50px;
+            }
+            .hero-content { padding: 1rem; }
+            .hero-content h1 { font-size: 2rem; }
+            .hero-content p { font-size: 1rem; }
+            .hero-content button { padding: 0.8rem 1.5rem; font-size: 0.9rem; }
+            main { padding: 1.5rem 0.5rem; }
+            .section { margin: 2.5rem 0; }
+            .section-title { font-size: 1.7rem; }
+            .section p { font-size: 0.9rem; }
+            .care-tips-grid { grid-template-columns: 1fr; gap: 1.2rem; }
+            .tip-card { padding: 1rem; }
+            .tip-card h3 { font-size: 1.1rem; }
+            .tip-card p { font-size: 0.85rem; }
+            .tip-card button { padding: 0.7rem 1rem; font-size: 0.9rem; }
+            .care-tips-filter { flex-direction: column; align-items: center; }
+            .featured-tip, .expert-advice {
+                padding: 1.2rem;
+            }
+            .cart-container, .checkout-container {
+                padding: 1.2rem;
+                border-radius: 15px;
+            }
+            #cart-modal h2, #checkout-modal h2 { font-size: 1.5rem; }
+            footer { padding: 2rem 0.5rem 1rem; }
+            .footer-content { gap: 1.5rem; }
+            footer h3 { font-size: 1.2rem; }
+            footer p, footer a { font-size: 0.85rem; }
+            .social-icons a { font-size: 1.3rem; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Notification Area -->
+    <div id="cart-notification"></div>
+    <div id="copy-notification"></div>
+    <!-- Header - Copied from index.html -->
+    <header>
+        <div class="top-bar">
+            <i class="fas fa-truck"></i>
+            Free Delivery on Orders Over ₦10,000!
+            <i class="fas fa-truck"></i>
+        </div>
+        <div class="main-header">
+            <div class="logo">
+                <i class="fas fa-crown"></i>
+                King's Farms and Foods
+            </div>
+            <div class="mobile-logo">
+                <i class="fas fa-crown"></i>
+                KF
+            </div>
+            <div class="nav-container">
+                <nav>
+                    <a href="index.html">Home</a>
+                    <a href="about.html">About Us</a>
+                    <a href="shop.html">Shop</a>
+                    <a href="recipes.html">Recipes</a>
+                    <a href="care-tips.html">Care & Tips</a>
+                    <a href="blog.html">Blog</a>
+                    <a href="contact.html">Contact</a>
+                </nav>
+            </div>
+            <div class="header-icons">
+                <div class="cart-icon">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span id="cart-count">0</span>
+                </div>
+                <span id="dark-mode-toggle"><i class="fas fa-moon"></i></span>
+                <span class="hamburger"><i class="fas fa-bars"></i></span>
+            </div>
+        </div>
+    </header>
+    <!-- Mobile Bottom Navigation - Copied from index.html -->
+    <div class="mobile-bottom-nav">
+        <a href="index.html" class="mobile-nav-item">
+            <i class="fas fa-home"></i>
+            <span>Home</span>
+        </a>
+        <a href="shop.html" class="mobile-nav-item">
+            <i class="fas fa-carrot"></i>
+            <span>Shop</span>
+        </a>
+        <a href="blog.html" class="mobile-nav-item">
+            <i class="fas fa-newspaper"></i>
+            <span>Blog</span>
+        </a>
+        <a href="#" class="mobile-nav-item active">
+            <i class="fas fa-ellipsis-h"></i>
+            <span>More</span>
+        </a>
+    </div>
+    <!-- Bottom Sheet - Copied from index.html -->
+    <div class="sheet-overlay" id="sheet-overlay"></div>
+    <div class="bottom-sheet" id="bottom-sheet">
+        <div class="sheet-handle"></div>
+        <div class="sheet-content">
+            <a href="about.html" class="sheet-item">
+                <i class="fas fa-info-circle"></i>
+                <span>About Us</span>
+            </a>
+            <a href="recipes.html" class="sheet-item">
+                <i class="fas fa-utensils"></i>
+                <span>Recipes</span>
+            </a>
+            <a href="care-tips.html" class="sheet-item">
+                <i class="fas fa-seedling"></i>
+                <span>Care & Tips</span>
+            </a>
+            <a href="contact.html" class="sheet-item">
+                <i class="fas fa-envelope"></i>
+                <span>Contact</span>
+            </a>
+            <a href="#" class="sheet-item" id="mobile-dark-mode-toggle">
+                <i class="fas fa-moon"></i>
+                <span>Dark Mode</span>
+            </a>
+        </div>
+    </div>
+    <!-- Hero Section - Adapted from index.html -->
+    <section class="hero" id="care-tips">
+        <div class="hero-carousel">
+            <div class="hero-slide active">
+                <img src="https://i.pinimg.com/736x/71/18/cf/7118cf49663094a25852005371b1db63.jpg" alt="Fresh Produce Care">
+            </div>
+            <div class="hero-slide">
+                <img src="https://i.pinimg.com/736x/bb/5c/22/bb5c2235a0c39d0bb19a0a43f41a3a56.jpg" alt="Egg Storage">
+            </div>
+            <div class="hero-slide">
+                <img src="https://i.pinimg.com/736x/8f/22/d8/8f22d8d54e2825d536c97850e8eb3fc1.jpg" alt="Honey Storage">
+            </div>
+        </div>
+        <div class="hero-content">
+            <h1>Care & Tips</h1>
+            <p>Learn how to keep your farm-fresh goods at their best with our expert advice!</p>
+            <button onclick="scrollToTips()">Explore Tips</button>
+        </div>
+    </section>
+    <!-- Main Content -->
+    <main>
+        <section class="care-tips-intro section">
+            <h2 class="section-title">Preserving Freshness</h2>
+            <p>At King's Farm and Foods, we believe that proper care and storage are just as important as the quality of the produce itself. Our expert tips will help you maximize the shelf life, flavor, and nutritional value of your farm-fresh goods.</p>
+        </section>
+    
+        </section>
+        <section class="care-tips section" id="care-tips-section">
+            <div class="care-tips-grid">
+                <div class="tip-card" data-type="produce">
+                    <div class="image-wrapper">
+                        <img src="https://i.pinimg.com/736x/ba/23/a6/ba23a6631aeb00060ccef4e2e9808ef5.jpg" alt="Organic Tomatoes">
+                    </div>
+                    <h3>Tomatoes</h3>
+                    <div class="tags">
+                        <span class="tag">Produce</span>
+                        <span class="tag">Storage</span>
+                    </div>
+                    <p>Store at room temperature away from direct sunlight. Avoid refrigerating to preserve flavor and texture.</p>
+                    <button onclick="showTipDetails('tomatoes')">More Tips</button>
+                </div>
+                <div class="tip-card" data-type="poultry">
+                    <div class="image-wrapper">
+                        <img src="https://i.pinimg.com/736x/6d/4e/69/6d4e69f4daaea849dafe02a00fec31e2.jpg" alt="Whole Chicken">
+                    </div>
+                    <h3>Poultry</h3>
+                    <div class="tags">
+                        <span class="tag">Poultry</span>
+                        <span class="tag">Safety</span>
+                    </div>
+                    <p>Refrigerate fresh poultry at 0-4°C and use within 1-2 days, or freeze for up to 6 months.</p>
+                    <button onclick="showTipDetails('poultry')">More Tips</button>
+                </div>
+                <div class="tip-card" data-type="dairy">
+                    <div class="image-wrapper">
+                        <img src="https://i.pinimg.com/736x/44/7c/4f/447c4f82295eae6f8318285c58af5b6a.jpg" alt="Fresh Milk">
+                    </div>
+                    <h3>Dairy Products</h3>
+                    <div class="tags">
+                        <span class="tag">Dairy</span>
+                        <span class="tag">Storage</span>
+                    </div>
+                    <p>Keep dairy products in the coldest part of your refrigerator. Never store milk in the door.</p>
+                    <button onclick="showTipDetails('dairy')">More Tips</button>
+                </div>
+                <div class="tip-card" data-type="produce">
+                    <div class="image-wrapper">
+                        <img src="https://i.pinimg.com/736x/88/b4/d3/88b4d3d59bb06f174b3ffcf80590e6b5.jpg" alt="Leafy Greens">
+                    </div>
+                    <h3>Leafy Greens</h3>
+                    <div class="tags">
+                        <span class="tag">Produce</span>
+                        <span class="tag">Freshness</span>
+                    </div>
+                    <p>Wash greens just before use. Store unwashed in a breathable bag with a paper towel in the fridge.</p>
+                    <button onclick="showTipDetails('greens')">More Tips</button>
+                </div>
+                <div class="tip-card" data-type="storage">
+                    <div class="image-wrapper">
+                        <img src="https://i.pinimg.com/736x/12/1b/54/121b543d8daf2667dc71498f8f943485.jpg" alt="Root Vegetables">
+                    </div>
+                    <h3>Root Vegetables</h3>
+                    <div class="tags">
+                        <span class="tag">Storage</span>
+                        <span class="tag">Produce</span>
+                    </div>
+                    <p>Store carrots, beets, and potatoes in a cool, dark, and well-ventilated place. Remove greens before storing.</p>
+                    <button onclick="showTipDetails('roots')">More Tips</button>
+                </div>
+                <div class="tip-card" data-type="produce">
+                    <div class="image-wrapper">
+                        <img src="https://i.pinimg.com/736x/f2/7c/a9/f27ca938a2ec8a43336f89dda1db900f.jpg" alt="Pure Honey">
+                    </div>
+                    <h3>Honey</h3>
+                    <div class="tags">
+                        <span class="tag">Produce</span>
+                        <span class="tag">Storage</span>
+                    </div>
+                    <p>Store in a cool, dry place in a tightly sealed jar. Avoid heat and moisture to prevent crystallization.</p>
+                    <button onclick="showTipDetails('honey')">More Tips</button>
+                </div>
+            </div>
+        </section>
+        <section class="featured-tip section">
+            <div class="featured-content">
+                <h2>Tip of the Week</h2>
+                <p>Our top recommendation for this week to keep your produce fresh</p>
+                <div class="tip-card">
+                    <div class="image-wrapper">
+                        <img src="https://images.unsplash.com/photo-1540420773420-3366772f4999?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" alt="Mixed Vegetables">
+                    </div>
+                    <h3>How to Revive Wilted Greens</h3>
+                    <div class="tags">
+                        <span class="tag">Produce</span>
+                        <span class="tag">Freshness</span>
+                        <span class="tag">Pro Tip</span>
+                    </div>
+                    <p>Place wilted leafy greens in a bowl of ice water for 15-30 minutes. They'll crisp right back up!</p>
+                    <button onclick="showTipDetails('wilted-greens')">Learn More</button>
+                </div>
+            </div>
+        </section>
+        <section class="expert-advice section">
+            <div class="expert-advice-content">
+                <h3><i class="fas fa-user-md"></i> Expert Advice from Our Farm Team</h3>
+                <p>"The key to freshness is understanding the unique needs of each type of produce. Never treat all fruits and vegetables the same way."</p>
+                <div class="advice-grid">
+                    <div class="advice-item">
+                        <i class="fas fa-thermometer-half"></i>
+                        <h4>Temperature Control</h4>
+                        <p>Different products require different storage temperatures. Know what goes in the fridge and what doesn't.</p>
+                    </div>
+                    <div class="advice-item">
+                        <i class="fas fa-tint"></i>
+                        <h4>Humidity Matters</h4>
+                        <p>Leafy greens need high humidity, while onions and garlic need dry conditions. Store accordingly.</p>
+                    </div>
+                    <div class="advice-item">
+                        <i class="fas fa-apple-alt"></i>
+                        <h4>Ethylene Sensitivity</h4>
+                        <p>Apples, bananas, and tomatoes produce ethylene gas that ripens other produce. Store them separately.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    <!-- Cart Modal - Copied from index.html -->
+    <div id="cart-modal">
+        <div class="cart-container">
+            <span class="cart-close"><i class="fas fa-times"></i></span>
+            <h2>Your Farm Haul</h2>
+            <ul id="cart-items"></ul>
+            <p id="cart-total">Total: ₦0.00</p>
+            <div class="cart-actions">
+                <button onclick="showCheckout()">Proceed to Checkout</button>
+                <button class="cancel">Continue Shopping</button>
+            </div>
+        </div>
+    </div>
+    <!-- Checkout Modal - Copied from index.html -->
+    <div id="checkout-modal">
+        <div class="checkout-container">
+            <span class="checkout-close"><i class="fas fa-times"></i></span>
+            <h2>Complete Your Order</h2>
+            <div id="order-summary"></div>
+            <div class="bank-details">
+                <h3>Make Payment to Any of These Accounts</h3>
+                <div class="bank-card">
+                    <p><strong>Bank:</strong> First Bank</p>
+                    <p><strong>Account Number:</strong> 3199605670 <button class="copy-btn" data-text="3199605670">Copy</button></p>
+                    <p><strong>Name:</strong> Alade Omotayo David</p>
+                </div>
+                <div class="bank-card">
+                    <p><strong>Bank:</strong> Opay</p>
+                    <p><strong>Account Number:</strong> 9120800600 <button class="copy-btn" data-text="9120800600">Copy</button></p>
+                    <p><strong>Name:</strong> King's Farm and Foods</p>
+                </div>
+                <div class="bank-card">
+                    <p><strong>Bank:</strong> UBA</p>
+                    <p><strong>Account Number:</strong> 2143009690 <button class="copy-btn" data-text="2143009690">Copy</button></p>
+                    <p><strong>Name:</strong> Alade Omotayo David</p>
+                </div>
+            </div>
+            <form class="checkout-form" id="checkout-form" action="https://getform.io/f/brookxya" method="POST" enctype="multipart/form-data">
+                <div class="file-upload">
+                    <i class="fas fa-upload"></i>
+                    <label for="proof">Upload Proof of Payment (Image or PDF)</label>
+                    <input type="file" id="proof" name="proof" accept="image/*,application/pdf" required>
+                </div>
+                <input type="hidden" name="cart_items" id="cart-items-input">
+                <input type="hidden" name="total" id="cart-total-input">
+                <input type="hidden" name="whatsapp_message" id="whatsapp-message-input">
+                <div class="actions">
+                    <button type="submit">Submit Proof</button>
+                    <button type="button" onclick="sendToWhatsApp()">Continue on WhatsApp</button>
+                    <button type="button" class="cancel">Cancel</button>
+                </div>
+                <div id="checkout-message"></div>
+            </form>
+        </div>
+    </div>
+    <!-- Tip Detail Modal -->
+    <div id="tip-modal">
+        <div class="tip-container">
+            <span class="tip-close"><i class="fas fa-times"></i></span>
+            <h2 id="tip-title">Tomatoes</h2>
+            <img id="tip-image" src="https://images.unsplash.com/photo-1492496913980-501348b61469?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8b3JnYW5pYyUyMGZhcm1pbmd8ZW58MHx8MHx8fDA=" alt="Care and Tips">
+            <div class="tip-details" id="tip-details">
+                <h3>Best Practices for Tomatoes</h3>
+                <p><strong>Storage Temperature:</strong> 12-18°C (54-64°F)</p>
+                <p><strong>Refrigeration:</strong> Avoid if possible. Cold temperatures destroy flavor compounds and can make the texture mealy.</p>
+                <p><strong>Ripening:</strong> Green tomatoes can be ripened at room temperature in a paper bag with a banana to speed up the process.</p>
+                <p><strong>Shelf Life:</strong> 3-7 days at room temperature, 5-10 days if refrigerated (though flavor will be compromised).</p>
+                <p><strong>Pro Tip:</strong> If you must refrigerate tomatoes, take them out 30 minutes before eating to allow flavors to develop.</p>
+            </div>
+        </div>
+    </div>
+    <!-- Footer - Copied from index.html -->
+    <footer>
+        <div class="footer-content">
+            <div>
+                <h3>King's Farms and Foods</h3>
+                <p><i class="fas fa-map-marker-alt"></i> 12,Onyejekwe street,Talavic road,Itoki-Dalemo,Alakuko,Lagos State</p>
+                <p><i class="fas fa-globe"></i> We ship across Nigeria!</p>
+                <p><i class="fas fa-phone-alt"></i> +234 912 080 0600</p>
+                <p><i class="fas fa-envelope"></i> kingsfarms18@gmail.com</p>
+                <p><i class="fas fa-clock"></i> Mon-Fri: 8am-5pm, Sat: 9am-3pm (WAT)</p>
+            </div>
+            <div>
+                <h3>Quick Links</h3>
+                <p><a href="index.html">Home</a></p>
+                <p><a href="about.html">About</a></p>
+                <p><a href="shop.html">Shop</a></p>
+                <p><a href="contact.html">Contact</a></p>
+                <p><a href="blog.html">Blog</a></p>
+            </div>
+            <div>
+                <h3>Explore More</h3>
+                <p><a href="recipes.html">Recipes</a></p>
+                <p><a href="care-tips.html">Care & Tips</a></p>
+                <p><a href="#">Customer Stories</a></p>
+                <p><a href="#">Newsletter Signup</a></p>
+            </div>
+            <div>
+                <h3>Follow Us</h3>
+                <div class="social-icons">
+                    <a href="https://tiktok.com/@david_reign1"><i class="fab fa-tiktok"></i></a>
+                    <a href="https://twitter.com/kingsfarm_ng"><i class="fab fa-twitter"></i></a>
+                    <a href="https://facebook.com/kingsfarmsfoods"><i class="fab fa-facebook-f"></i></a>
+                    <a href="https://instagram.com/kingsfarm_ng"><i class="fab fa-instagram"></i></a>
+                    <a href="https://wa.me/+2349120800600"><i class="fab fa-whatsapp"></i></a>
+                </div>
+                <h3 style="margin-top: 1.5rem;">Newsletter</h3>
+                <form id="newsletter-form" action="https://getform.io/f/brookxya" method="POST">
+                    <input type="email" name="email" placeholder="Your Email" required>
+                    <button type="submit">Join Our Community!</button>
+                    <div class="form-message"></div>
+                </form>
+            </div>
+        </div>
+        <div class="back-to-top">
+            <a href="#"><i class="fas fa-arrow-up"></i> Back to Top</a>
+        </div>
+        <div class="copyright">
+            &copy; 2025 King's Farms and Foods. All rights reserved.
+        </div>
+    </footer>
+    <script>
+        // Initialize cart globally - Copied from index.html
+        let cart = JSON.parse(localStorage.getItem('cart')) || { items: [] };
+        
+        // Tip data
+        const tips = {
+            'tomatoes': {
+                title: 'Tomatoes',
+                content: `
+                    <h3>Best Practices for Tomatoes</h3>
+                    <p><strong>Storage Temperature:</strong> 12-18°C (54-64°F)</p>
+                    <p><strong>Refrigeration:</strong> Avoid if possible. Cold temperatures destroy flavor compounds and can make the texture mealy.</p>
+                    <p><strong>Ripening:</strong> Green tomatoes can be ripened at room temperature in a paper bag with a banana to speed up the process.</p>
+                    <p><strong>Shelf Life:</strong> 3-7 days at room temperature, 5-10 days if refrigerated (though flavor will be compromised).</p>
+                    <p><strong>Pro Tip:</strong> If you must refrigerate tomatoes, take them out 30 minutes before eating to allow flavors to develop.</p>
+                `
+            },
+            'poultry': {
+                title: 'Poultry Care',
+                content: `
+                    <h3>Handling Fresh Poultry Safely</h3>
+                    <p><strong>Refrigeration:</strong> Store at 0-4°C (32-39°F) in the coldest part of your refrigerator.</p>
+                    <p><strong>Shelf Life:</strong> Use within 1-2 days of purchase for fresh poultry.</p>
+                    <p><strong>Freezing:</strong> For longer storage, freeze at -18°C (0°F) or below. Properly wrapped poultry can last 6-12 months in the freezer.</p>
+                    <p><strong>Thawing:</strong> Always thaw poultry in the refrigerator, not at room temperature, to prevent bacterial growth.</p>
+                    <p><strong>Pro Tip:</strong> Keep raw poultry separate from other foods to avoid cross-contamination. Wash hands, surfaces, and utensils thoroughly after handling.</p>
+                `
+            },
+            'dairy': {
+                title: 'Dairy Products',
+                content: `
+                    <h3>Maximizing Dairy Freshness</h3>
+                    <p><strong>Temperature:</strong> Keep dairy products at or below 4°C (39°F) at all times.</p>
+                    <p><strong>Location:</strong> Store milk and dairy in the main body of the refrigerator, not in the door where temperatures fluctuate.</p>
+                    <p><strong>Shelf Life:</strong> Milk: 5-7 days after opening, Cheese: Varies by type (hard cheeses last longer), Yogurt: 7-10 days after opening.</p>
+                    <p><strong>Freezing:</strong> Most dairy does not freeze well, but hard cheeses and butter can be frozen for longer storage.</p>
+                    <p><strong>Pro Tip:</strong> Always check the "use by" date and smell dairy products before consuming if you're unsure.</p>
+                `
+            },
+            'greens': {
+                title: 'Leafy Greens',
+                content: `
+                    <h3>Keeping Greens Crisp</h3>
+                    <p><strong>Washing:</strong> Wash only when ready to use. Excess moisture accelerates spoilage.</p>
+                    <p><strong>Storage:</strong> Place unwashed greens in a breathable container or plastic bag with a paper towel to absorb excess moisture.</p>
+                    <p><strong>Temperature:</strong> Store in the crisper drawer of your refrigerator at high humidity.</p>
+                    <p><strong>Shelf Life:</strong> Most leafy greens last 3-7 days when stored properly.</p>
+                    <p><strong>Pro Tip:</strong> Revive wilted greens by soaking them in ice water for 15-30 minutes.</p>
+                `
+            },
+            'roots': {
+                title: 'Root Vegetables',
+                content: `
+                    <h3>Storing Root Vegetables</h3>
+                    <p><strong>Preparation:</strong> Remove leafy tops from carrots, beets, and radishes before storing to prevent moisture loss.</p>
+                    <p><strong>Location:</strong> Store in a cool, dark, well-ventilated place (like a root cellar or pantry). Avoid refrigeration for most root vegetables.</p>
+                    <p><strong>Humidity:</strong> Root vegetables prefer moderate humidity. Store in perforated plastic bags or containers with ventilation.</p>
+                    <p><strong>Shelf Life:</strong> Potatoes: 2-3 months, Carrots: 3-4 weeks, Beets: 2-3 weeks, Onions: 1-2 months.</p>
+                    <p><strong>Pro Tip:</strong> Never store potatoes and onions together. Onions emit gases that cause potatoes to sprout faster.</p>
+                `
+            },
+            'honey': {
+                title: 'Honey Storage',
+                content: `
+                    <h3>Preserving Pure Honey</h3>
+                    <p><strong>Container:</strong> Store in a tightly sealed glass or food-grade plastic container.</p>
+                    <p><strong>Temperature:</strong> Keep in a cool, dry place between 10-21°C (50-70°F). Avoid heat and direct sunlight.</p>
+                    <p><strong>Moisture:</strong> Never introduce water into honey, as it can cause fermentation.</p>
+                    <p><strong>Shelf Life:</strong> Honey is one of the few foods that never truly spoils. It can last indefinitely if stored properly.</p>
+                    <p><strong>Pro Tip:</strong> If your honey crystallizes, place the jar in warm water (not boiling) to gently return it to liquid form.</p>
+                `
+            },
+            'wilted-greens': {
+                title: 'Reviving Wilted Greens',
+                content: `
+                    <h3>The Ice Water Revival Method</h3>
+                    <p><strong>Step 1:</strong> Fill a large bowl with cold water and add plenty of ice cubes.</p>
+                    <p><strong>Step 2:</strong> Submerge the wilted greens completely in the ice water.</p>
+                    <p><strong>Step 3:</strong> Let them soak for 15-30 minutes. The cold water rehydrates the cells and restores crispness.</p>
+                    <p><strong>Step 4:</strong> Remove the greens, shake off excess water, and pat dry with a clean towel or use a salad spinner.</p>
+                    <p><strong>Pro Tip:</strong> This method works best for leafy greens like lettuce, spinach, and kale. It won't revive greens that are already slimy or rotten.</p>
+                `
+            }
+        };
+        
+        // Copy to Clipboard function - Copied from index.html
+        function copyToClipboard(text, button) {
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(text).then(() => {
+                    showCopyNotification();
+                    button.classList.add('copied');
+                    button.textContent = 'Copied!';
+                    setTimeout(() => {
+                        button.classList.remove('copied');
+                        button.textContent = 'Copy';
+                    }, 2000);
+                }).catch(err => {
+                    console.error('Clipboard API failed:', err);
+                    fallbackCopy(text, button);
+                });
+            } else {
+                fallbackCopy(text, button);
+            }
+        }
+        
+        // Fallback Copy function - Copied from index.html
+        function fallbackCopy(text, button) {
+            const textarea = document.createElement('textarea');
+            textarea.value = text;
+            textarea.style.position = 'fixed';
+            textarea.style.opacity = '0';
+            document.body.appendChild(textarea);
+            textarea.select();
+            try {
+                document.execCommand('copy');
+                showCopyNotification();
+                button.classList.add('copied');
+                button.textContent = 'Copied!';
+                setTimeout(() => {
+                    button.classList.remove('copied');
+                    button.textContent = 'Copy';
+                }, 2000);
+            } catch (err) {
+                console.error('Fallback copy failed:', err);
+                alert('Failed to copy. Please copy manually: ' + text);
+            } finally {
+                document.body.removeChild(textarea);
+            }
+        }
+        
+        // Show copy notification - Copied from index.html
+        function showCopyNotification() {
+            const notification = document.getElementById('copy-notification');
+            notification.textContent = 'Account number copied!';
+            notification.style.display = 'block';
+            setTimeout(() => notification.style.display = 'none', 2000);
+        }
+        
+        // Add to Cart function - Copied from index.html
+        function addToCart(id, name, price) {
+            const parsedPrice = parseFloat(price);
+            let item = cart.items.find(i => i.id === id);
+            if (item) {
+                item.quantity += 1;
+            } else {
+                cart.items.push({ id, name, price: parsedPrice, quantity: 1 });
+            }
+            localStorage.setItem('cart', JSON.stringify(cart));
+            updateCartDisplay();
+            // Show notification
+            const notification = document.getElementById('cart-notification');
+            notification.textContent = `${name} added to cart!`;
+            notification.style.display = 'block';
+            setTimeout(() => notification.style.display = 'none', 2000);
+        }
+        
+        // Update cart display - Copied from index.html
+        function updateCartDisplay() {
+            let cartCount = document.getElementById('cart-count');
+            let cartItems = document.getElementById('cart-items');
+            let cartTotal = document.getElementById('cart-total');
+            cartItems.innerHTML = cart.items.length === 0 
+                ? '<li style="text-align: center; font-style: italic; padding: 2rem;">Your cart is empty.</li>'
+                : cart.items.map(item => `
+                    <li>
+                        <span>${item.name} - ₦${item.price.toFixed(2)} x ${item.quantity}</span>
+                        <div class="quantity-controls">
+                            <button onclick="updateQuantity('${item.id}', -1)">-</button>
+                            <button onclick="updateQuantity('${item.id}', 1)">+</button>
+                            <button class="remove" onclick="removeItem('${item.id}')">Remove</button>
+                        </div>
+                    </li>
+                `).join('');
+            cartTotal.textContent = `Total: ₦${cart.items.reduce((sum, i) => sum + i.price * i.quantity, 0).toFixed(2)}`;
+            cartCount.textContent = cart.items.reduce((sum, i) => sum + i.quantity, 0);
+        }
+        
+        // Update quantity - Copied from index.html
+        function updateQuantity(id, change) {
+            let item = cart.items.find(i => i.id === id);
+            if (item) {
+                item.quantity += change;
+                if (item.quantity <= 0) {
+                    cart.items = cart.items.filter(i => i.id !== id);
+                }
+                localStorage.setItem('cart', JSON.stringify(cart));
+                updateCartDisplay();
+            }
+        }
+        
+        // Remove item - Copied from index.html
+        function removeItem(id) {
+            cart.items = cart.items.filter(i => i.id !== id);
+            localStorage.setItem('cart', JSON.stringify(cart));
+            updateCartDisplay();
+        }
+        
+        // Show checkout modal - Copied from index.html
+        function showCheckout() {
+            if (cart.items.length === 0) {
+                alert('Your cart is empty! Add some items before checking out.');
+                return;
+            }
+            document.getElementById('cart-modal').style.display = 'none';
+            const checkoutModal = document.getElementById('checkout-modal');
+            const orderSummary = document.getElementById('order-summary');
+            orderSummary.innerHTML = `
+                <h3>Order Summary</h3>
+                <ul>
+                    ${cart.items.map(item => `
+                        <li>${item.name} - ₦${item.price.toFixed(2)} x ${item.quantity}</li>
+                    `).join('')}
+                </ul>
+                <p><strong>Total:</strong> ₦${cart.items.reduce((sum, i) => sum + i.price * i.quantity, 0).toFixed(2)}</p>
+            `;
+            checkoutModal.style.display = 'flex';
+        }
+        
+        // Send order to WhatsApp - Copied from index.html
+        function sendToWhatsApp() {
+            const total = cart.items.reduce((sum, i) => sum + i.price * i.quantity, 0).toFixed(2);
+            const message = `Order Details:
+${cart.items.map(item => `${item.name} - ${item.quantity} x ₦${item.price.toFixed(2)}`).join('\n')}
+Total: ₦${total}
+Please provide delivery details.`;
+            const encodedMessage = encodeURIComponent(message);
+            const whatsappNumber = '+2349120800600';
+            const whatsappUrl = `https://api.whatsapp.com/send?phone=${whatsappNumber}&text=${encodedMessage}`;
+            // Store message in hidden input for Getform.io submission
+            document.getElementById('whatsapp-message-input').value = message;
+            // Open WhatsApp in a new tab
+            window.open(whatsappUrl, '_blank');
+            // Show confirmation message
+            const checkoutMessage = document.getElementById('checkout-message');
+            checkoutMessage.innerHTML = '<p style="color: var(--success);">Order sent to WhatsApp! Please provide delivery details there.</p>';
+        }
+        
+        // Bottom Sheet Functions - Copied from index.html
+        function openBottomSheet() {
+            document.getElementById('bottom-sheet').classList.add('active');
+            document.getElementById('sheet-overlay').classList.add('active');
+        }
+        
+        function closeBottomSheet() {
+            document.getElementById('bottom-sheet').classList.remove('active');
+            document.getElementById('sheet-overlay').classList.remove('active');
+        }
+        
+        // Show tip details
+        function showTipDetails(tipId) {
+            const tip = tips[tipId];
+            if (!tip) return;
+            
+            document.getElementById('tip-title').textContent = tip.title;
+            document.getElementById('tip-image').src = tip.image;
+            document.getElementById('tip-details').innerHTML = tip.content;
+            
+            document.getElementById('tip-modal').style.display = 'flex';
+        }
+        
+        // Scroll to tips section
+        function scrollToTips() {
+            document.getElementById('care-tips-section').scrollIntoView({ behavior: 'smooth' });
+        }
+        
+        // Event Listeners
+        document.addEventListener('DOMContentLoaded', () => {
+            // Initialize cart display - Copied from index.html
+            updateCartDisplay();
+            
+            // Care tips filter buttons
+            document.querySelectorAll('.care-tips-filter button').forEach(button => {
+                button.addEventListener('click', () => {
+                    document.querySelectorAll('.care-tips-filter button').forEach(btn => btn.classList.remove('active'));
+                    button.classList.add('active');
+                    const type = button.dataset.type;
+                    
+                    document.querySelectorAll('.tip-card').forEach(card => {
+                        if (type === 'all' || card.dataset.type === type) {
+                            card.style.display = 'block';
+                        } else {
+                            card.style.display = 'none';
+                        }
+                    });
+                });
+            });
+            
+            // Copy buttons for bank details - Copied from index.html
+            document.querySelectorAll('.copy-btn').forEach(button => {
+                button.addEventListener('click', () => {
+                    const text = button.dataset.text;
+                    copyToClipboard(text, button);
+                });
+            });
+            
+            // Cart icon click - Copied from index.html
+            document.querySelector('.cart-icon').addEventListener('click', () => {
+                document.getElementById('cart-modal').style.display = 'flex';
+            });
+            
+            // Close modal buttons
+            document.querySelectorAll('.cart-close, .checkout-close, .tip-close, .cart-actions .cancel, .checkout-form .cancel').forEach(button => {
+                button.addEventListener('click', () => {
+                    document.getElementById('cart-modal').style.display = 'none';
+                    document.getElementById('checkout-modal').style.display = 'none';
+                    document.getElementById('tip-modal').style.display = 'none';
+                });
+            });
+            
+            // Hamburger menu toggle - Copied from index.html
+            document.querySelector('.hamburger').addEventListener('click', () => {
+                document.querySelector('.nav-container').classList.toggle('active');
+            });
+            
+            // Dark mode toggle - Copied from index.html
+            document.getElementById('dark-mode-toggle').addEventListener('click', () => {
+                document.body.classList.toggle('dark-mode');
+                const icon = document.getElementById('dark-mode-toggle');
+                const mobileIcon = document.getElementById('mobile-dark-mode-toggle').querySelector('i');
+                if (document.body.classList.contains('dark-mode')) {
+                    icon.innerHTML = '<i class="fas fa-sun"></i>';
+                    mobileIcon.className = 'fas fa-sun';
+                    localStorage.setItem('darkMode', 'enabled');
+                } else {
+                    icon.innerHTML = '<i class="fas fa-moon"></i>';
+                    mobileIcon.className = 'fas fa-moon';
+                    localStorage.setItem('darkMode', 'disabled');
+                }
+            });
+            
+            // Mobile dark mode toggle - Copied from index.html
+            document.getElementById('mobile-dark-mode-toggle').addEventListener('click', () => {
+                document.body.classList.toggle('dark-mode');
+                const icon = document.getElementById('dark-mode-toggle');
+                const mobileIcon = document.getElementById('mobile-dark-mode-toggle').querySelector('i');
+                if (document.body.classList.contains('dark-mode')) {
+                    icon.innerHTML = '<i class="fas fa-sun"></i>';
+                    mobileIcon.className = 'fas fa-sun';
+                    localStorage.setItem('darkMode', 'enabled');
+                } else {
+                    icon.innerHTML = '<i class="fas fa-moon"></i>';
+                    mobileIcon.className = 'fas fa-moon';
+                    localStorage.setItem('darkMode', 'disabled');
+                }
+                closeBottomSheet();
+            });
+            
+            // Check for saved dark mode preference - Copied from index.html
+            if (localStorage.getItem('darkMode') === 'enabled') {
+                document.body.classList.add('dark-mode');
+                document.getElementById('dark-mode-toggle').innerHTML = '<i class="fas fa-sun"></i>';
+                document.getElementById('mobile-dark-mode-toggle').querySelector('i').className = 'fas fa-sun';
+            }
+            
+            // Hero carousel - Copied from index.html
+            const slides = document.querySelectorAll('.hero-slide');
+            let currentSlide = 0;
+            function showSlide(index) {
+                slides.forEach((slide, i) => {
+                    slide.classList.toggle('active', i === index);
+                });
+            }
+            setInterval(() => {
+                currentSlide = (currentSlide + 1) % slides.length;
+                showSlide(currentSlide);
+            }, 5000);
+            
+            // Scroll animations - Copied from index.html
+            const sections = document.querySelectorAll('.section');
+            const observer = new IntersectionObserver(entries => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, { threshold: 0.1 });
+            sections.forEach(section => observer.observe(section));
+            
+            // Checkout form submission - Copied from index.html
+            document.getElementById('checkout-form').addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const form = e.target;
+                const submitButton = form.querySelector('button[type="submit"]');
+                const messageDiv = document.getElementById('checkout-message');
+                // Add loading state
+                submitButton.classList.add('loading');
+                submitButton.disabled = true;
+                // Prepare form data
+                const formData = new FormData(form);
+                formData.set('cart_items', JSON.stringify(cart.items));
+                formData.set('total', cart.items.reduce((sum, i) => sum + i.price * i.quantity, 0).toFixed(2));
+                try {
+                    const response = await fetch(form.action, {
+                        method: 'POST',
+                        body: formData
+                    });
+                    if (response.ok) {
+                        messageDiv.innerHTML = '<p style="color: var(--success);">Proof of payment submitted successfully!</p>';
+                        form.reset();
+                        cart.items = [];
+                        localStorage.setItem('cart', JSON.stringify(cart));
+                        updateCartDisplay();
+                        setTimeout(() => {
+                            document.getElementById('checkout-modal').style.display = 'none';
+                        }, 2000);
+                    } else {
+                        messageDiv.innerHTML = '<p style="color: var(--error);">Failed to submit proof. Please try again.</p>';
+                    }
+                } catch (error) {
+                    console.error('Submission error:', error);
+                    messageDiv.innerHTML = '<p style="color: var(--error);">An error occurred. Please try again.</p>';
+                } finally {
+                    submitButton.classList.remove('loading');
+                    submitButton.disabled = false;
+                }
+            });
+            
+            // Newsletter form submission - Copied from index.html
+            document.getElementById('newsletter-form').addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const form = e.target;
+                const messageDiv = form.querySelector('.form-message');
+                const submitButton = form.querySelector('button');
+                submitButton.classList.add('loading');
+                submitButton.disabled = true;
+                try {
+                    const response = await fetch(form.action, {
+                        method: 'POST',
+                        body: new FormData(form)
+                    });
+                    if (response.ok) {
+                        messageDiv.textContent = 'Thank you for subscribing!';
+                        messageDiv.classList.add('success');
+                        form.reset();
+                    } else {
+                        messageDiv.textContent = 'Subscription failed. Please try again.';
+                        messageDiv.classList.add('error');
+                    }
+                } catch (error) {
+                    console.error('Newsletter error:', error);
+                    messageDiv.textContent = 'An error occurred. Please try again.';
+                    messageDiv.classList.add('error');
+                } finally {
+                    submitButton.classList.remove('loading');
+                    submitButton.disabled = false;
+                    setTimeout(() => {
+                        messageDiv.textContent = '';
+                        messageDiv.classList.remove('success', 'error');
+                    }, 5000);
+                }
+            });
+            
+            // Bottom sheet functionality - Copied from index.html
+            document.querySelector('.mobile-nav-item.active').addEventListener('click', (e) => {
+                e.preventDefault();
+                openBottomSheet();
+            });
+            document.getElementById('sheet-overlay').addEventListener('click', closeBottomSheet);
+            // Swipe down to close bottom sheet - Copied from index.html
+            let startY = 0;
+            const bottomSheet = document.getElementById('bottom-sheet');
+            bottomSheet.addEventListener('touchstart', (e) => {
+                startY = e.touches[0].clientY;
+            });
+            bottomSheet.addEventListener('touchmove', (e) => {
+                const currentY = e.touches[0].clientY;
+                if (currentY - startY > 50) {
+                    closeBottomSheet();
+                }
+            });
+        });
+        
+        // Tip Modal Styles
+        const tipModalStyle = document.createElement('style');
+        tipModalStyle.innerHTML = `
+            #tip-modal {
+                display: none;
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0, 0, 0, 0.7);
+                z-index: 2000;
+                align-items: center;
+                justify-content: center;
+            }
+            .tip-container {
+                background: var(--card-bg);
+                padding: 2.5rem;
+                border-radius: 20px;
+                max-width: 800px;
+                width: 90%;
+                max-height: 90vh;
+                overflow-y: auto;
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+                position: relative;
+            }
+            .tip-close {
+                position: absolute;
+                top: 20px;
+                right: 20px;
+                font-size: 1.5rem;
+                color: var(--text-secondary);
+                cursor: pointer;
+                transition: color 0.3s;
+            }
+            .tip-close:hover {
+                color: var(--accent-primary);
+            }
+            #tip-modal h2 {
+                font-family: 'Playfair Display', serif;
+                font-size: 2.5rem;
+                color: var(--accent-primary);
+                margin-bottom: 1.5rem;
+                text-align: center;
+            }
+            #tip-image {
+                width: 100%;
+                max-height: 300px;
+                object-fit: cover;
+                border-radius: 10px;
+                margin-bottom: 1.5rem;
+            }
+            .tip-details {
+                color: var(--text-primary);
+                line-height: 1.8;
+            }
+            .tip-details h3 {
+                font-family: 'Playfair Display', serif;
+                font-size: 1.5rem;
+                color: var(--accent-primary);
+                margin: 1.5rem 0 1rem;
+                padding-bottom: 0.5rem;
+                border-bottom: 2px solid var(--bg-secondary);
+            }
+            .tip-details p {
+                margin-bottom: 1.2rem;
+                font-size: 1.1rem;
+            }
+            .tip-details p strong {
+                color: var(--accent-primary);
+            }
+        `;
+        document.head.appendChild(tipModalStyle);
+    </script>
+</body>
+</html>
+

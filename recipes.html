@@ -1,0 +1,2364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>King's Farm and Foods - Recipes</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Raleway:wght@300;400;600&display=swap" rel="stylesheet">
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* CSS Variables for Colors (Modern Farm Theme) */
+        :root {
+            --bg-primary: #F8FBF8; /* Light Greenish White */
+            --bg-secondary: #EDF5ED; /* Soft Green for sections */
+            --accent-primary: #2E8B57; /* Sea Green */
+            --accent-secondary: #4CAF50; /* Fresh Green for accents */
+            --accent-gold: #C9A227; /* Muted Gold for accents */
+            --text-primary: #1A331A; /* Dark Green for main text */
+            --text-secondary: #3D5C3D; /* Medium Green for secondary text */
+            --success: #2E8B57; /* Green for success */
+            --error: #D32F2F; /* Red for errors */
+            --footer-bg: #1B3C1B; /* Dark Green for Footer */
+            --footer-text: #E8F5E8; /* Light text for footer */
+            --card-bg: #FFFFFF; /* White for cards */
+            --shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            --shadow-hover: 0 8px 24px rgba(0, 0, 0, 0.12);
+        }
+        .dark-mode {
+            --bg-primary: #1A1F1A; /* Dark Gray-Green for modern base */
+            --bg-secondary: #252B25; /* Slightly lighter gray-green for sections */
+            --accent-primary: #3CB371;
+            --accent-secondary: #4CAF50;
+            --accent-gold: #D4AF37;
+            --text-primary: #E8F5E8; /* Light Green for main text */
+            --text-secondary: #C8E6C8; /* Light Gray-Green for secondary text */
+            --success: #4CAF50;
+            --error: #F44336;
+            --footer-bg: #0F1A0F;
+            --footer-text: #E8F5E8;
+            --card-bg: #252B25;
+            --shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            --shadow-hover: 0 8px 24px rgba(0, 0, 0, 0.3);
+        }
+        /* General Styles */
+        * { 
+            margin: 0; 
+            padding: 0; 
+            box-sizing: border-box; 
+        }
+        html {
+            scroll-behavior: smooth;
+        }
+        body {
+            font-family: 'Raleway', sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+            padding-bottom: 80px;
+        }
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s;
+        }
+        .dark-mode header {
+            background-color: rgba(37, 43, 37, 0.95);
+        }
+        .top-bar {
+            background: var(--accent-primary);
+            color: #FFFFFF;
+            text-align: center;
+            padding: 0.5rem;
+            font-size: 0.9rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+        }
+        .main-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: var(--accent-primary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .logo i {
+            font-size: 1.8rem;
+        }
+        .mobile-logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--accent-primary);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            display: none;
+        }
+        .nav-container {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+        nav { 
+            display: flex; 
+            gap: 1.5rem; 
+            position: relative; 
+        }
+        nav a {
+            color: var(--text-primary);
+            text-decoration: none;
+            font-weight: 500;
+            position: relative;
+            padding: 0.2rem 0;
+            transition: color 0.3s;
+        }
+        nav a::before {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--accent-primary), var(--accent-gold));
+            transition: width 0.4s ease;
+        }
+        nav a:hover::before {
+            width: 100%;
+        }
+        nav a:hover {
+            color: var(--accent-primary);
+        }
+        .header-icons { 
+            display: flex; 
+            gap: 1.2rem; 
+            align-items: center; 
+        }
+        .cart-icon { 
+            position: relative; 
+            cursor: pointer; 
+            font-size: 1.3rem; 
+            color: var(--text-primary);
+            transition: color 0.3s;
+        }
+        .cart-icon:hover { 
+            color: var(--accent-primary); 
+        }
+        #cart-count {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: var(--accent-primary);
+            color: #FFFFFF;
+            border-radius: 50%;
+            padding: 2px 6px;
+            font-size: 0.7rem;
+            min-width: 18px;
+            text-align: center;
+        }
+        #dark-mode-toggle { 
+            cursor: pointer; 
+            font-size: 1.3rem; 
+            color: var(--text-primary);
+            transition: color 0.3s;
+        }
+        #dark-mode-toggle:hover { 
+            color: var(--accent-primary); 
+        }
+        .hamburger { 
+            display: none; 
+            font-size: 1.5rem; 
+            cursor: pointer; 
+            color: var(--text-primary); 
+        }
+        .hamburger:hover { 
+            color: var(--accent-primary); 
+        }
+        /* Mobile Bottom Navigation */
+        .mobile-bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: var(--card-bg);
+            display: none;
+            justify-content: space-around;
+            align-items: center;
+            padding: 0.8rem 0;
+            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+            z-index: 1001;
+            border-top: 1px solid var(--bg-secondary);
+        }
+        .mobile-nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-decoration: none;
+            color: var(--text-secondary);
+            font-size: 0.8rem;
+            gap: 4px;
+            transition: color 0.3s;
+            flex: 1;
+        }
+        .mobile-nav-item i {
+            font-size: 1.2rem;
+        }
+        .mobile-nav-item.active {
+            color: var(--accent-primary);
+        }
+        .mobile-nav-item:hover {
+            color: var(--accent-primary);
+        }
+        /* Bottom Sheet */
+        .bottom-sheet {
+            position: fixed;
+            bottom: -100%;
+            left: 0;
+            width: 100%;
+            background: var(--card-bg);
+            border-radius: 20px 20px 0 0;
+            box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.15);
+            z-index: 1002;
+            transition: bottom 0.3s ease;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+        .bottom-sheet.active {
+            bottom: 0;
+        }
+        .sheet-handle {
+            width: 40px;
+            height: 4px;
+            background: var(--text-secondary);
+            border-radius: 2px;
+            margin: 12px auto;
+            opacity: 0.5;
+        }
+        .sheet-content {
+            padding: 0 1.5rem 2rem;
+        }
+        .sheet-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem 0;
+            text-decoration: none;
+            color: var(--text-primary);
+            border-bottom: 1px solid var(--bg-secondary);
+            transition: color 0.3s;
+        }
+        .sheet-item:last-child {
+            border-bottom: none;
+        }
+        .sheet-item i {
+            font-size: 1.2rem;
+            width: 24px;
+            text-align: center;
+        }
+        .sheet-item:hover {
+            color: var(--accent-primary);
+        }
+        .sheet-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1001;
+            display: none;
+        }
+        .sheet-overlay.active {
+            display: block;
+        }
+        /* Hero Section */
+        .hero {
+            position: relative;
+            height: 100vh;
+            min-height: 600px;
+            overflow: hidden;
+            text-align: center;
+            background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+            margin-top: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.3);
+            z-index: 1;
+        }
+        .hero-carousel {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+        .hero-slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 1s ease;
+        }
+        .hero-slide.active {
+            opacity: 1;
+        }
+        .hero-slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            animation: zoomIn 15s ease-in-out infinite;
+        }
+        @keyframes zoomIn {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            color: #FFFFFF;
+            text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            width: 90%;
+            max-width: 800px;
+            padding: 2rem;
+        }
+        .hero-content h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 4rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            animation: fadeInUp 1s ease-out;
+        }
+        .hero-content p {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            animation: fadeInUp 1s ease-out 0.3s both;
+        }
+        .hero-content button {
+            background: var(--accent-gold);
+            color: #FFFFFF;
+            border: none;
+            padding: 1.2rem 2.5rem;
+            font-size: 1.2rem;
+            cursor: pointer;
+            border-radius: 30px;
+            transition: all 0.3s;
+            animation: fadeInUp 1s ease-out 0.6s both;
+            font-weight: 600;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+        .hero-content button:hover {
+            background: #D9B43A;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25);
+        }
+        @keyframes fadeInUp {
+            0% { 
+                opacity: 0; 
+                transform: translateY(30px); 
+            }
+            100% { 
+                opacity: 1; 
+                transform: translateY(0); 
+            }
+        }
+        /* Main Content */
+        main { 
+            padding: 4rem 2rem; 
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .section {
+            position: relative;
+            margin: 5rem 0;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+        .section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.8rem;
+            color: var(--accent-primary);
+            margin-bottom: 2rem;
+            text-align: center;
+            position: relative;
+            padding-bottom: 1.5rem;
+        }
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(to right, var(--accent-primary), var(--accent-gold));
+            border-radius: 2px;
+        }
+        .section p {
+            font-size: 1.2rem;
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 2rem;
+            color: var(--text-secondary);
+        }
+        /* Recipe Filter */
+        .recipe-filter {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin: 2rem 0 3rem;
+            flex-wrap: wrap;
+            max-width: 800px;
+        }
+        .recipe-filter button {
+            background: var(--card-bg);
+            border: 2px solid var(--accent-primary);
+            color: var(--accent-primary);
+            padding: 0.5rem 1.2rem;
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        .recipe-filter button.active, .recipe-filter button:hover {
+            background: var(--accent-primary);
+            color: #FFFFFF;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        /* Recipes Grid */
+        .recipes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        .recipe-card {
+            background: var(--card-bg);
+            padding: 1.5rem;
+            border-radius: 15px;
+            text-align: center;
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow);
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            overflow: hidden;
+        }
+        .recipe-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-hover);
+        }
+        .recipe-card .image-wrapper {
+            position: relative;
+            width: 100%;
+            padding-top: 75%;
+            margin-bottom: 1.5rem;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        .recipe-card img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+            border-radius: 10px;
+            transition: transform 0.5s;
+        }
+        .recipe-card:hover img {
+            transform: scale(1.1);
+        }
+        .recipe-card h3 {
+            font-size: 1.4rem;
+            margin: 0.5rem 0;
+            color: var(--accent-primary);
+        }
+        .recipe-card .tags {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            margin: 0.5rem 0;
+            flex-wrap: wrap;
+        }
+        .recipe-card .tag {
+            background: var(--bg-secondary);
+            color: var(--text-secondary);
+            padding: 0.3rem 0.6rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+        .recipe-card p { 
+            font-size: 1rem; 
+            margin-bottom: 1.5rem; 
+            color: var(--text-secondary);
+            flex-grow: 1;
+        }
+        .recipe-card .recipe-meta {
+            display: flex;
+            justify-content: space-between;
+            margin: 1rem 0;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+        .recipe-card button {
+            background: var(--accent-primary);
+            color: #FFFFFF;
+            border: none;
+            padding: 0.9rem 1.5rem;
+            cursor: pointer;
+            border-radius: 30px;
+            transition: all 0.3s;
+            font-weight: 600;
+            width: 100%;
+            font-size: 1rem;
+        }
+        .recipe-card button:hover {
+            background: var(--accent-secondary);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        /* Featured Recipe Section */
+        .featured-recipe {
+            background: var(--bg-secondary);
+            padding: 2rem;
+            border-radius: 20px;
+            text-align: center;
+            margin: 4rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+        .featured-content {
+            position: relative;
+            z-index: 1;
+        }
+        .featured-recipe h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.2rem;
+            color: var(--accent-primary);
+            margin-bottom: 1.5rem;
+        }
+        .featured-recipe p {
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto 2rem;
+            color: var(--text-secondary);
+        }
+        .featured-recipe .recipe-card {
+            background: var(--card-bg);
+            box-shadow: var(--shadow-hover);
+            padding: 1.2rem;
+        }
+        /* Chef's Tip Section */
+        .chefs-tip {
+            background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+            color: #FFFFFF;
+            padding: 2.5rem;
+            border-radius: 20px;
+            text-align: center;
+            margin: 4rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+        .chefs-tip::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.1);
+            z-index: 0;
+        }
+        .chefs-tip-content {
+            position: relative;
+            z-index: 1;
+        }
+        .chefs-tip h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        .chefs-tip p {
+            font-size: 1.1rem;
+            max-width: 700px;
+            margin: 0 auto;
+            font-style: italic;
+        }
+        /* Cart Modal */
+        #cart-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+        }
+        .cart-container {
+            background: var(--card-bg);
+            padding: 2.5rem;
+            border-radius: 20px;
+            max-width: 700px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            position: relative;
+        }
+        .cart-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 1.5rem;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+        .cart-close:hover {
+            color: var(--accent-primary);
+        }
+        #cart-modal h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.2rem;
+            color: var(--accent-primary);
+            margin-bottom: 1.5rem;
+            text-align: center;
+            padding-right: 30px;
+        }
+        #cart-items {
+            list-style: none;
+            margin-bottom: 2rem;
+        }
+        #cart-items li {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.2rem;
+            margin-bottom: 1rem;
+            background: var(--bg-secondary);
+            border-radius: 10px;
+            font-size: 1.1rem;
+        }
+        #cart-items li span {
+            flex: 1;
+            font-weight: 500;
+        }
+        #cart-items li .quantity-controls {
+            display: flex;
+            gap: 0.8rem;
+            align-items: center;
+        }
+        #cart-items li button {
+            background: var(--accent-primary);
+            color: #FFFFFF;
+            border: none;
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 1rem;
+            transition: background 0.3s;
+            min-width: 40px;
+        }
+        #cart-items li button:hover {
+            background: var(--accent-secondary);
+        }
+        #cart-items li button.remove {
+            background: var(--error);
+        }
+        #cart-items li button.remove:hover {
+            background: #E53935;
+        }
+        #cart-total {
+            font-size: 1.5rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 2rem;
+            color: var(--accent-primary);
+            padding: 1rem;
+            background: var(--bg-secondary);
+            border-radius: 10px;
+        }
+        .cart-actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+        }
+        .cart-actions button {
+            background: var(--accent-primary);
+            color: #FFFFFF;
+            border: none;
+            padding: 1rem 2rem;
+            cursor: pointer;
+            border-radius: 30px;
+            font-size: 1.1rem;
+            transition: all 0.3s;
+            font-weight: 600;
+            flex: 1;
+            max-width: 200px;
+        }
+        .cart-actions button:hover {
+            background: var(--accent-secondary);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        /* Checkout Modal */
+        #checkout-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+        }
+        .checkout-container {
+            background: var(--card-bg);
+            padding: 2.5rem;
+            border-radius: 20px;
+            max-width: 800px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            position: relative;
+        }
+        .checkout-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 1.5rem;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+        .checkout-close:hover {
+            color: var(--accent-primary);
+        }
+        #checkout-modal h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            color: var(--accent-primary);
+            margin-bottom: 1.5rem;
+            text-align: center;
+            padding-right: 30px;
+        }
+        #order-summary {
+            background: var(--bg-secondary);
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin-bottom: 2rem;
+        }
+        #order-summary h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            color: var(--accent-primary);
+            margin-bottom: 1rem;
+        }
+        #order-summary ul {
+            list-style: none;
+            margin-bottom: 1rem;
+        }
+        #order-summary li {
+            font-size: 1rem;
+            margin-bottom: 0.5rem;
+            display: flex;
+            justify-content: space-between;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        }
+        .dark-mode #order-summary li {
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        #order-summary p {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--accent-primary);
+            text-align: right;
+            margin-top: 1rem;
+        }
+        .bank-details {
+            margin-bottom: 2rem;
+        }
+        .bank-details h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            color: var(--accent-primary);
+            margin-bottom: 1rem;
+        }
+        .bank-details .bank-card {
+            background: var(--bg-secondary);
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin-bottom: 1.5rem;
+            transition: all 0.3s ease;
+            border-left: 4px solid var(--accent-primary);
+        }
+        .bank-details .bank-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow);
+        }
+        .bank-details p {
+            font-size: 1.1rem;
+            margin: 0.5rem 0;
+        }
+        .bank-details .copy-btn {
+            background: var(--accent-primary);
+            color: #FFFFFF;
+            border: none;
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 0.9rem;
+            transition: background 0.3s;
+            margin-left: 0.5rem;
+        }
+        .bank-details .copy-btn:hover {
+            background: var(--accent-secondary);
+        }
+        .bank-details .copy-btn.copied {
+            background: var(--success);
+        }
+        .checkout-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+        .checkout-form .file-upload {
+            position: relative;
+            padding: 1.5rem;
+            border: 2px dashed var(--accent-primary);
+            border-radius: 10px;
+            text-align: center;
+            background: var(--bg-secondary);
+            transition: background 0.3s;
+        }
+        .checkout-form .file-upload:hover {
+            background: var(--bg-primary);
+        }
+        .checkout-form .file-upload input[type="file"] {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            cursor: pointer;
+        }
+        .checkout-form .file-upload label {
+            font-size: 1.1rem;
+            color: var(--text-primary);
+            cursor: pointer;
+        }
+        .checkout-form .file-upload i {
+            font-size: 2rem;
+            color: var(--accent-primary);
+            margin-bottom: 0.5rem;
+        }
+        .checkout-form .actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .checkout-form button {
+            background: var(--accent-primary);
+            color: #FFFFFF;
+            border: none;
+            padding: 1rem 2rem;
+            cursor: pointer;
+            border-radius: 30px;
+            font-size: 1.1rem;
+            transition: all 0.3s;
+            font-weight: 600;
+            flex: 1;
+            min-width: 180px;
+            max-width: 250px;
+        }
+        .checkout-form button:hover {
+            background: var(--accent-secondary);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .checkout-form button.cancel {
+            background: var(--text-secondary);
+        }
+        .checkout-form button.cancel:hover {
+            background: var(--text-primary);
+        }
+        #checkout-message {
+            text-align: center;
+            margin-top: 1rem;
+            font-weight: 600;
+        }
+        /* Recipe Detail Modal */
+        #recipe-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+        }
+        .recipe-container {
+            background: var(--card-bg);
+            padding: 2.5rem;
+            border-radius: 20px;
+            max-width: 800px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            position: relative;
+        }
+        .recipe-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 1.5rem;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+        .recipe-close:hover {
+            color: var(--accent-primary);
+        }
+        #recipe-modal h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            color: var(--accent-primary);
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+        #recipe-image {
+            width: 100%;
+            max-height: 300px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-bottom: 1.5rem;
+        }
+        .recipe-meta-detail {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+        }
+        .recipe-meta-detail .meta-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .recipe-meta-detail .meta-item span:first-child {
+            color: var(--accent-primary);
+            font-weight: 600;
+        }
+        .recipe-details h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            color: var(--accent-primary);
+            margin: 1.5rem 0 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--bg-secondary);
+        }
+        .recipe-details ul, .recipe-details ol {
+            padding-left: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        .recipe-details li {
+            margin-bottom: 0.5rem;
+            line-height: 1.6;
+        }
+        .recipe-actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+        .recipe-actions button {
+            background: var(--accent-primary);
+            color: #FFFFFF;
+            border: none;
+            padding: 1rem 2rem;
+            cursor: pointer;
+            border-radius: 30px;
+            font-size: 1.1rem;
+            transition: all 0.3s;
+            font-weight: 600;
+            min-width: 150px;
+        }
+        .recipe-actions button:hover {
+            background: var(--accent-secondary);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        /* Notification Styling */
+        #cart-notification, #copy-notification {
+            display: none;
+            position: fixed;
+            top: 100px;
+            right: 20px;
+            background: var(--success);
+            color: #fff;
+            padding: 1rem 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            z-index: 2000;
+            font-weight: 600;
+        }
+        /* Loading Animation */
+        .loading {
+            position: relative;
+            pointer-events: none;
+        }
+        .loading::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 24px;
+            height: 24px;
+            border: 3px solid #FFFFFF;
+            border-top: 3px solid transparent;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            transform: translate(-50%, -50%);
+        }
+        @keyframes spin {
+            0% { transform: translate(-50%, -50%) rotate(0deg); }
+            100% { transform: translate(-50%, -50%) rotate(360deg); }
+        }
+        /* Footer */
+        footer {
+            background: var(--footer-bg);
+            color: var(--footer-text);
+            padding: 4rem 1rem 2rem;
+            margin-top: 4rem;
+        }
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 2.5rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        footer h3 {
+            font-family: 'Playfair Display', serif;
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #FFFFFF;
+        }
+        footer p, footer a {
+            color: var(--footer-text);
+            text-decoration: none;
+            margin: 0.7rem 0;
+            transition: all 0.3s ease;
+        }
+        footer a:hover {
+            color: var(--accent-gold);
+            padding-left: 5px;
+        }
+        footer p i { 
+            margin-right: 0.5rem; 
+            color: var(--accent-gold); 
+            width: 20px;
+            text-align: center;
+        }
+        footer form { 
+            display: flex; 
+            flex-direction: column; 
+            gap: 0.8rem; 
+        }
+        footer input {
+            padding: 0.8rem;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 5px;
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--footer-text);
+            transition: box-shadow 0.3s;
+        }
+        footer input:focus {
+            box-shadow: 0 0 0 2px var(--accent-gold);
+            outline: none;
+        }
+        footer button {
+            background: var(--accent-gold);
+            color: #FFFFFF;
+            border: none;
+            padding: 0.8rem;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background 0.3s;
+            font-weight: 600;
+        }
+        footer button:hover {
+            background: #D9B43A;
+        }
+        .form-message { 
+            text-align: center; 
+            margin-top: 0.5rem; 
+            font-size: 0.9rem;
+        }
+        .success { 
+            color: var(--success); 
+        }
+        .error { 
+            color: var(--error); 
+        }
+        .social-icons { 
+            display: flex; 
+            gap: 1rem; 
+            margin-top: 1rem;
+        }
+        .social-icons a {
+            font-size: 1.5rem;
+            color: var(--footer-text);
+            transition: all 0.3s;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+        }
+        .social-icons a:hover {
+            color: var(--accent-gold);
+            transform: translateY(-3px);
+            background: rgba(255, 255, 255, 0.2);
+        }
+        .back-to-top {
+            text-align: center;
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .back-to-top a {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 0.8rem 1.5rem;
+            background: var(--accent-gold);
+            color: #FFFFFF;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        .back-to-top a:hover {
+            background: #D9B43A;
+            transform: translateY(-3px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        .copyright {
+            text-align: center;
+            margin-top: 2rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.7);
+        }
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .main-header { padding: 1rem; }
+            .logo { font-size: 1.8rem; }
+            .hero-content h1 { font-size: 3.5rem; }
+            .hero-content p { font-size: 1.3rem; }
+            .hero-content button { padding: 1rem 2rem; font-size: 1.1rem; }
+        }
+        @media (max-width: 768px) {
+            .top-bar {
+                display: none;
+            }
+            .main-header { 
+                padding: 0.8rem 1rem; 
+            }
+            .logo {
+                display: none;
+            }
+            .mobile-logo {
+                display: flex;
+            }
+            .nav-container {
+                display: none;
+            }
+            .header-icons {
+                gap: 1rem;
+            }
+            #dark-mode-toggle {
+                display: none;
+            }
+            .hamburger { 
+                display: none;
+            }
+            .mobile-bottom-nav {
+                display: flex;
+            }
+            .hero {
+                height: 70vh;
+                min-height: 500px;
+                margin-top: 60px;
+            }
+            .hero-content h1 { font-size: 2.5rem; }
+            .hero-content p { font-size: 1.1rem; }
+            .hero-content button { padding: 0.9rem 1.8rem; font-size: 1rem; }
+            main { padding: 2rem 1rem; }
+            .section { margin: 3rem 0; }
+            .section-title { font-size: 2rem; }
+            .section p { font-size: 1rem; }
+            .recipes-grid { grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 1.5rem; }
+            .recipe-card { padding: 1.2rem; }
+            .recipe-card h3 { font-size: 1.2rem; }
+            .recipe-card p { font-size: 0.9rem; }
+            .recipe-card button { padding: 0.8rem 1.2rem; font-size: 0.9rem; }
+            .recipe-filter { gap: 0.5rem; }
+            .recipe-filter button { padding: 0.4rem 0.8rem; font-size: 0.9rem; }
+            .featured-recipe, .chefs-tip {
+                padding: 1.5rem;
+            }
+            .cart-container, .checkout-container, .recipe-container {
+                padding: 1.5rem;
+                width: 95%;
+            }
+            #cart-modal h2, #checkout-modal h2, #recipe-modal h2 { font-size: 1.8rem; }
+            #cart-items li {
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 1rem;
+                font-size: 1rem;
+            }
+            #cart-items li span { margin-bottom: 0.5rem; }
+            #cart-items li .quantity-controls {
+                width: 100%;
+                justify-content: space-between;
+            }
+            .cart-actions, .checkout-form .actions {
+                flex-direction: column;
+            }
+            .cart-actions button, .checkout-form button {
+                max-width: 100%;
+            }
+            footer { padding: 3rem 1rem 1.5rem; }
+            .footer-content { gap: 2rem; }
+            footer h3 { font-size: 1.3rem; }
+            footer p, footer a { font-size: 0.9rem; }
+        }
+        @media (max-width: 480px) {
+            .main-header { padding: 0.5rem; }
+            .mobile-logo { font-size: 1.3rem; }
+            .hero {
+                height: 60vh;
+                min-height: 400px;
+                margin-top: 50px;
+            }
+            .hero-content { padding: 1rem; }
+            .hero-content h1 { font-size: 2rem; }
+            .hero-content p { font-size: 1rem; }
+            .hero-content button { padding: 0.8rem 1.5rem; font-size: 0.9rem; }
+            main { padding: 1.5rem 0.5rem; }
+            .section { margin: 2.5rem 0; }
+            .section-title { font-size: 1.7rem; }
+            .section p { font-size: 0.9rem; }
+            .recipes-grid { grid-template-columns: 1fr; gap: 1.2rem; }
+            .recipe-card { padding: 1rem; }
+            .recipe-card h3 { font-size: 1.1rem; }
+            .recipe-card p { font-size: 0.85rem; }
+            .recipe-card button { padding: 0.7rem 1rem; font-size: 0.9rem; }
+            .recipe-filter { flex-direction: column; align-items: center; }
+            .featured-recipe, .chefs-tip {
+                padding: 1.2rem;
+            }
+            .cart-container, .checkout-container, .recipe-container {
+                padding: 1.2rem;
+                border-radius: 15px;
+            }
+            #cart-modal h2, #checkout-modal h2, #recipe-modal h2 { font-size: 1.5rem; }
+            #cart-items li { padding: 0.8rem; font-size: 0.9rem; }
+            #cart-total { font-size: 1.3rem; }
+            .cart-actions button, .recipe-actions button {
+                padding: 0.8rem 1.2rem;
+                font-size: 1rem;
+            }
+            footer { padding: 2rem 0.5rem 1rem; }
+            .footer-content { gap: 1.5rem; }
+            footer h3 { font-size: 1.2rem; }
+            footer p, footer a { font-size: 0.85rem; }
+            .social-icons a { font-size: 1.3rem; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Notification Area -->
+    <div id="cart-notification"></div>
+    <div id="copy-notification"></div>
+    <!-- Header -->
+    <header>
+        <div class="top-bar">
+            <i class="fas fa-truck"></i>
+            Free Delivery on Orders Over ₦10,000!
+            <i class="fas fa-truck"></i>
+        </div>
+        <div class="main-header">
+            <div class="logo">
+                <i class="fas fa-crown"></i>
+                King's Farm and Foods
+            </div>
+            <div class="mobile-logo">
+                <i class="fas fa-crown"></i>
+                KF
+            </div>
+            <div class="nav-container">
+                <nav>
+                    <a href="index.html">Home</a>
+                    <a href="about.html">About Us</a>
+                    <a href="shop.html">Shop</a>
+                    <a href="recipes.html">Recipes</a>
+                    <a href="care-tips.html">Care & Tips</a>
+                    <a href="blog.html">Blog</a>
+                    <a href="contact.html">Contact</a>
+                </nav>
+            </div>
+            <div class="header-icons">
+                <div class="cart-icon">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span id="cart-count">0</span>
+                </div>
+                <span id="dark-mode-toggle"><i class="fas fa-moon"></i></span>
+                <span class="hamburger"><i class="fas fa-bars"></i></span>
+            </div>
+        </div>
+    </header>
+    <!-- Mobile Bottom Navigation -->
+    <div class="mobile-bottom-nav">
+        <a href="index.html" class="mobile-nav-item">
+            <i class="fas fa-home"></i>
+            <span>Home</span>
+        </a>
+        <a href="shop.html" class="mobile-nav-item">
+            <i class="fas fa-carrot"></i>
+            <span>Shop</span>
+        </a>
+        <a href="blog.html" class="mobile-nav-item">
+            <i class="fas fa-newspaper"></i>
+            <span>Blog</span>
+        </a>
+        <a href="#" class="mobile-nav-item active">
+            <i class="fas fa-ellipsis-h"></i>
+            <span>More</span>
+        </a>
+    </div>
+    <!-- Bottom Sheet -->
+    <div class="sheet-overlay" id="sheet-overlay"></div>
+    <div class="bottom-sheet" id="bottom-sheet">
+        <div class="sheet-handle"></div>
+        <div class="sheet-content">
+            <a href="about.html" class="sheet-item">
+                <i class="fas fa-info-circle"></i>
+                <span>About Us</span>
+            </a>
+            <a href="recipes.html" class="sheet-item">
+                <i class="fas fa-utensils"></i>
+                <span>Recipes</span>
+            </a>
+            <a href="care-tips.html" class="sheet-item">
+                <i class="fas fa-seedling"></i>
+                <span>Care & Tips</span>
+            </a>
+            <a href="contact.html" class="sheet-item">
+                <i class="fas fa-envelope"></i>
+                <span>Contact</span>
+            </a>
+            <a href="#" class="sheet-item" id="mobile-dark-mode-toggle">
+                <i class="fas fa-moon"></i>
+                <span>Dark Mode</span>
+            </a>
+        </div>
+    </div>
+    <!-- Hero Section -->
+    <section class="hero" id="recipes">
+        <div class="hero-carousel">
+            <div class="hero-slide active">
+                <img src="https://i.pinimg.com/736x/b2/4a/c4/b24ac4b6d2a146425c075a43a7b442c9.jpg" alt="BBQ Farm Feast">
+            </div>
+            <div class="hero-slide">
+                <img src="https://i.pinimg.com/736x/7a/d0/ec/7ad0ecbbc984fc7413365994478c39e0.jpg" alt="Fresh Salad">
+            </div>
+            <div class="hero-slide">
+                <img src="https://i.pinimg.com/736x/1e/83/8d/1e838d2f96d6afc45f7255ec3cb2805c.jpg" alt="Grilled Vegetables">
+            </div>
+        </div>
+        <div class="hero-content">
+            <h1>Farm-Fresh Recipes</h1>
+            <p>Savor the taste of our organic produce with delicious, healthy recipes!</p>
+            <button onclick="scrollToRecipes()">Explore Recipes</button>
+        </div>
+    </section>
+    <!-- Main Content -->
+    <main>
+        <section class="recipes-intro section">
+            <h2 class="section-title">Our Culinary Philosophy</h2>
+            <p>At King's Farm and Foods, we believe that great cooking starts with exceptional ingredients. Our recipes showcase the natural flavors of our organic produce, free-range poultry, and pure honey. Each dish is crafted to be both nutritious and delicious, celebrating the bounty of our farm.</p>
+        </section>
+    
+        </section>
+        <section class="recipes section" id="recipes-section">
+            <div class="recipes-grid">
+                <div class="recipe-card" data-type="bbq">
+                    <div class="image-wrapper">
+                        <img src="https://i.pinimg.com/736x/28/63/50/286350c3abcc31f3019a95c9b5f75d87.jpg" alt="Spicy BBQ Chicken">
+                    </div>
+                    <h3>Spicy BBQ Chicken</h3>
+                    <div class="tags">
+                        <span class="tag">BBQ</span>
+                        <span class="tag">Chicken</span>
+                        <span class="tag">Spicy</span>
+                    </div>
+                    <p>Juicy chicken thighs marinated in our signature spice blend and grilled to perfection.</p>
+                    <div class="recipe-meta">
+                        <span><i class="far fa-clock"></i> 1h 20m</span>
+                        <span><i class="fas fa-utensil-spoon"></i> 4 servings</span>
+                    </div>
+                    <button onclick="showRecipeDetails('bbq-chicken')">View Recipe</button>
+                </div>
+                <div class="recipe-card" data-type="salad">
+                    <div class="image-wrapper">
+                        <img src="https://i.pinimg.com/736x/80/fc/22/80fc22cbba88ab5da621a06b8b88ed73.jpg" alt="Farm Fresh Salad">
+                    </div>
+                    <h3>Farm Fresh Salad</h3>
+                    <div class="tags">
+                        <span class="tag">Salad</span>
+                        <span class="tag">Vegetarian</span>
+                        <span class="tag">Healthy</span>
+                    </div>
+                    <p>Crisp lettuce, tomatoes, and cucumbers with our house-made zesty dressing.</p>
+                    <div class="recipe-meta">
+                        <span><i class="far fa-clock"></i> 15m</span>
+                        <span><i class="fas fa-utensil-spoon"></i> 4 servings</span>
+                    </div>
+                    <button onclick="showRecipeDetails('farm-salad')">View Recipe</button>
+                </div>
+                <div class="recipe-card" data-type="grilled">
+                    <div class="image-wrapper">
+                        <img src="https://i.pinimg.com/1200x/15/46/ed/1546ed88b852af91cb882d8ae09c3649.jpg" alt="Grilled Vegetable Platter">
+                    </div>
+                    <h3>Grilled Vegetable Platter</h3>
+                    <div class="tags">
+                        <span class="tag">Grilled</span>
+                        <span class="tag">Vegetarian</span>
+                        <span class="tag">Farm-Fresh</span>
+                    </div>
+                    <p>Seasonal vegetables charred for a smoky, delicious flavor.</p>
+                    <div class="recipe-meta">
+                        <span><i class="far fa-clock"></i> 20m</span>
+                        <span><i class="fas fa-utensil-spoon"></i> 4 servings</span>
+                    </div>
+                    <button onclick="showRecipeDetails('grilled-veggies')">View Recipe</button>
+                </div>
+                <div class="recipe-card" data-type="soup">
+                    <div class="image-wrapper">
+                        <img src="https://i.pinimg.com/1200x/cd/46/4b/cd464b74fda3db44a000efc193568a00.jpg" alt="Hearty Vegetable Soup">
+                    </div>
+                    <h3>Hearty Vegetable Soup</h3>
+                    <div class="tags">
+                        <span class="tag">Soup</span>
+                        <span class="tag">Vegetarian</span>
+                        <span class="tag">Comforting</span>
+                    </div>
+                    <p>Warm soup packed with farm-grown carrots, potatoes, and spinach.</p>
+                    <div class="recipe-meta">
+                        <span><i class="far fa-clock"></i> 30m</span>
+                        <span><i class="fas fa-utensil-spoon"></i> 4 servings</span>
+                    </div>
+                    <button onclick="showRecipeDetails('vegetable-soup')">View Recipe</button>
+                </div>
+                <div class="recipe-card" data-type="bbq">
+                    <div class="image-wrapper">
+                        <img src="https://i.pinimg.com/736x/79/23/48/792348e4aa825683d28cebeb64d711f9.jpg" alt="Smoky BBQ Ribs">
+                    </div>
+                    <h3>Smoky BBQ Ribs</h3>
+                    <div class="tags">
+                        <span class="tag">BBQ</span>
+                        <span class="tag">Pork</span>
+                        <span class="tag">Savory</span>
+                    </div>
+                    <p>Tender ribs slathered in our rich, homemade BBQ sauce.</p>
+                    <div class="recipe-meta">
+                        <span><i class="far fa-clock"></i> 3h 30m</span>
+                        <span><i class="fas fa-utensil-spoon"></i> 4 servings</span>
+                    </div>
+                    <button onclick="showRecipeDetails('bbq-ribs')">View Recipe</button>
+                </div>
+                <div class="recipe-card" data-type="salad">
+                    <div class="image-wrapper">
+                        <img src="https://i.pinimg.com/736x/5c/27/a1/5c27a1ae56dcfbd88e635c5e46a8637b.jpg" alt="Tropical Fruit Salad">
+                    </div>
+                    <h3>Tropical Fruit Salad</h3>
+                    <div class="tags">
+                        <span class="tag">Salad</span>
+                        <span class="tag">Fruit</span>
+                        <span class="tag">Refreshing</span>
+                    </div>
+                    <p>A vibrant mix of mangoes, pineapples, and papayas.</p>
+                    <div class="recipe-meta">
+                        <span><i class="far fa-clock"></i> 15m</span>
+                        <span><i class="fas fa-utensil-spoon"></i> 4 servings</span>
+                    </div>
+                    <button onclick="showRecipeDetails('tropical-salad')">View Recipe</button>
+                </div>
+            </div>
+        </section>
+        <section class="featured-recipe section">
+            <div class="featured-content">
+                <h2>Recipe of the Month</h2>
+                <p>Our chef's special creation featuring seasonal produce from our farm</p>
+                <div class="recipe-card">
+                    <div class="image-wrapper">
+                        <img src="https://i.pinimg.com/1200x/d1/a2/4e/d1a24e956baea20bb76844e9a62a65b6.jpg" alt="Herb Roasted Chicken">
+                    </div>
+                    <h3>Herb Roasted Chicken with Root Vegetables</h3>
+                    <div class="tags">
+                        <span class="tag">Roasted</span>
+                        <span class="tag">Chicken</span>
+                        <span class="tag">Seasonal</span>
+                    </div>
+                    <p>Tender chicken roasted with rosemary, thyme, and seasonal root vegetables from our farm.</p>
+                    <div class="recipe-meta">
+                        <span><i class="far fa-clock"></i> 1h 45m</span>
+                        <span><i class="fas fa-utensil-spoon"></i> 6 servings</span>
+                    </div>
+                    <button onclick="showRecipeDetails('herb-chicken')">View Recipe</button>
+                </div>
+            </div>
+        </section>
+        <section class="chefs-tip section">
+            <div class="chefs-tip-content">
+                <h3><i class="fas fa-chef-hat"></i> Chef's Tip</h3>
+                <p>"Always let your meat rest after cooking. This allows the juices to redistribute, resulting in a more flavorful and tender dish. For chicken, rest for at least 5-10 minutes before carving."</p>
+            </div>
+        </section>
+    </main>
+    <!-- Cart Modal -->
+    <div id="cart-modal">
+        <div class="cart-container">
+            <span class="cart-close"><i class="fas fa-times"></i></span>
+            <h2>Your Farm Haul</h2>
+            <ul id="cart-items"></ul>
+            <p id="cart-total">Total: ₦0.00</p>
+            <div class="cart-actions">
+                <button onclick="showCheckout()">Proceed to Checkout</button>
+                <button class="cancel">Continue Shopping</button>
+            </div>
+        </div>
+    </div>
+    <!-- Checkout Modal -->
+    <div id="checkout-modal">
+        <div class="checkout-container">
+            <span class="checkout-close"><i class="fas fa-times"></i></span>
+            <h2>Complete Your Order</h2>
+            <div id="order-summary"></div>
+            <div class="bank-details">
+                <h3>Make Payment to Any of These Accounts</h3>
+                <div class="bank-card">
+                    <p><strong>Bank:</strong> First Bank</p>
+                    <p><strong>Account Number:</strong> 3199605670 <button class="copy-btn" data-text="3199605670">Copy</button></p>
+                    <p><strong>Name:</strong> Alade Omotayo David</p>
+                </div>
+                <div class="bank-card">
+                    <p><strong>Bank:</strong> Opay</p>
+                    <p><strong>Account Number:</strong> 9120800600 <button class="copy-btn" data-text="9120800600">Copy</button></p>
+                    <p><strong>Name:</strong> King's Farm and Foods</p>
+                </div>
+                <div class="bank-card">
+                    <p><strong>Bank:</strong> UBA</p>
+                    <p><strong>Account Number:</strong> 2143009690 <button class="copy-btn" data-text="2143009690">Copy</button></p>
+                    <p><strong>Name:</strong> Alade Omotayo David</p>
+                </div>
+            </div>
+            <form class="checkout-form" id="checkout-form" action="https://getform.io/f/brookxya" method="POST" enctype="multipart/form-data">
+                <div class="file-upload">
+                    <i class="fas fa-upload"></i>
+                    <label for="proof">Upload Proof of Payment (Image or PDF)</label>
+                    <input type="file" id="proof" name="proof" accept="image/*,application/pdf" required>
+                </div>
+                <input type="hidden" name="cart_items" id="cart-items-input">
+                <input type="hidden" name="total" id="cart-total-input">
+                <input type="hidden" name="whatsapp_message" id="whatsapp-message-input">
+                <div class="actions">
+                    <button type="submit">Submit Proof</button>
+                    <button type="button" onclick="sendToWhatsApp()">Continue on WhatsApp</button>
+                    <button type="button" class="cancel">Cancel</button>
+                </div>
+                <div id="checkout-message"></div>
+            </form>
+        </div>
+    </div>
+    <!-- Recipe Detail Modal -->
+    <div id="recipe-modal">
+        <div class="recipe-container">
+            <span class="recipe-close"><i class="fas fa-times"></i></span>
+            <h2 id="recipe-title">Spicy BBQ Chicken</h2>
+            <img id="recipe-image" src="https://s3.us-east-1.amazonaws.com/web.develop/KFAF/spicy+BBQ.jpg" alt="Spicy BBQ Chicken">
+            <div class="recipe-meta-detail">
+                <div class="meta-item">
+                    <span>Prep Time</span>
+                    <span id="prep-time">20 minutes</span>
+                </div>
+                <div class="meta-item">
+                    <span>Cook Time</span>
+                    <span id="cook-time">1 hour</span>
+                </div>
+                <div class="meta-item">
+                    <span>Servings</span>
+                    <span id="servings">4</span>
+                </div>
+            </div>
+            <div class="recipe-details">
+                <h3>Ingredients</h3>
+                <ul id="ingredients">
+                    <li>4 chicken thighs</li>
+                    <li>2 tbsp olive oil</li>
+                    <li>1 tbsp paprika</li>
+                    <li>1 tsp cayenne pepper</li>
+                    <li>2 cloves garlic, minced</li>
+                    <li>1/4 cup BBQ sauce</li>
+                    <li>Salt and pepper to taste</li>
+                    <li>Fresh parsley for garnish</li>
+                </ul>
+                <h3>Instructions</h3>
+                <ol id="instructions">
+                    <li>In a bowl, mix olive oil, paprika, cayenne, garlic, salt, and pepper.</li>
+                    <li>Coat chicken thighs with the marinade and let sit for 1 hour.</li>
+                    <li>Preheat grill to medium-high heat.</li>
+                    <li>Grill chicken for 6-8 minutes per side, basting with BBQ sauce.</li>
+                    <li>Garnish with parsley and serve hot.</li>
+                </ol>
+            </div>
+            <div class="recipe-actions">
+                <button onclick="addToCart('recipe-bbq', 'Spicy BBQ Chicken Kit', 2500)">Order Ingredients</button>
+                <button onclick="printRecipe()">Print Recipe</button>
+            </div>
+        </div>
+    </div>
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div>
+                <h3>King's Farms and Foods</h3>
+                <p><i class="fas fa-map-marker-alt"></i> 12,Onyejekwe street,Talavic road,Itoki-Dalemo,Alakuko,Lagos State</p>
+                <p><i class="fas fa-globe"></i> We ship across Nigeria!</p>
+                <p><i class="fas fa-phone-alt"></i> +234 912 080 0600</p>
+                <p><i class="fas fa-envelope"></i> kingsfarms18@gmail.com</p>
+                <p><i class="fas fa-clock"></i> Mon-Fri: 8am-5pm, Sat: 9am-3pm (WAT)</p>
+            </div>
+            <div>
+                <h3>Quick Links</h3>
+                <p><a href="index.html">Home</a></p>
+                <p><a href="about.html">About</a></p>
+                <p><a href="shop.html">Shop</a></p>
+                <p><a href="contact.html">Contact</a></p>
+                <p><a href="blog.html">Blog</a></p>
+            </div>
+            <div>
+                <h3>Explore More</h3>
+                <p><a href="recipes.html">Recipes</a></p>
+                <p><a href="care-tips.html">Farming Tips</a></p>
+                <p><a href="#">Customer Stories</a></p>
+                <p><a href="#">Newsletter Signup</a></p>
+            </div>
+            <div>
+                <h3>Follow Us</h3>
+                <div class="social-icons">
+                    <a href="https://tiktok.com/@david_reign1"><i class="fab fa-tiktok"></i></a>
+                    <a href="https://twitter.com/kingsfarm_ng"><i class="fab fa-twitter"></i></a>
+                    <a href="https://facebook.com/kingsfarmsfoods"><i class="fab fa-facebook-f"></i></a>
+                    <a href="https://instagram.com/kingsfarm_ng"><i class="fab fa-instagram"></i></a>
+                    <a href="https://wa.me/+2349120800600"><i class="fab fa-whatsapp"></i></a>
+                </div>
+                <h3 style="margin-top: 1.5rem;">Newsletter</h3>
+                <form id="newsletter-form" action="https://getform.io/f/brookxya" method="POST">
+                    <input type="email" name="email" placeholder="Your Email" required>
+                    <button type="submit">Join Our Community!</button>
+                    <div class="form-message"></div>
+                </form>
+            </div>
+        </div>
+        <div class="back-to-top">
+            <a href="#"><i class="fas fa-arrow-up"></i> Back to Top</a>
+        </div>
+        <div class="copyright">
+            &copy; 2025 King's Farms and Foods. All rights reserved.
+        </div>
+    </footer>
+    <script>
+        // Initialize cart globally
+        let cart = JSON.parse(localStorage.getItem('cart')) || { items: [] };
+        
+        // Recipe data
+        const recipes = {
+            'bbq-chicken': {
+                title: 'Spicy BBQ Chicken',
+                image: 'https://s3.us-east-1.amazonaws.com/web.develop/KFAF/spicy+BBQ.jpg',
+                prepTime: '20 minutes',
+                cookTime: '1 hour',
+                servings: '4',
+                ingredients: [
+                    '4 chicken thighs',
+                    '2 tbsp olive oil',
+                    '1 tbsp paprika',
+                    '1 tsp cayenne pepper',
+                    '2 cloves garlic, minced',
+                    '1/4 cup BBQ sauce',
+                    'Salt and pepper to taste',
+                    'Fresh parsley for garnish'
+                ],
+                instructions: [
+                    'In a bowl, mix olive oil, paprika, cayenne, garlic, salt, and pepper.',
+                    'Coat chicken thighs with the marinade and let sit for 1 hour.',
+                    'Preheat grill to medium-high heat.',
+                    'Grill chicken for 6-8 minutes per side, basting with BBQ sauce.',
+                    'Garnish with parsley and serve hot.'
+                ]
+            },
+            'farm-salad': {
+                title: 'Farm Fresh Salad',
+                image: 'https://s3.us-east-1.amazonaws.com/web.develop/KFAF/Fresh+Salad.jpg',
+                prepTime: '15 minutes',
+                cookTime: '0 minutes',
+                servings: '4',
+                ingredients: [
+                    '4 cups mixed greens',
+                    '1 cup cherry tomatoes, halved',
+                    '1 cucumber, sliced',
+                    '1/4 red onion, thinly sliced',
+                    '1/4 cup feta cheese, crumbled',
+                    '3 tbsp olive oil',
+                    '1 tbsp balsamic vinegar',
+                    'Salt and pepper to taste'
+                ],
+                instructions: [
+                    'In a large bowl, combine greens, tomatoes, cucumber, and onion.',
+                    'In a small bowl, whisk olive oil, balsamic vinegar, salt, and pepper.',
+                    'Drizzle dressing over salad and toss gently.',
+                    'Top with feta cheese and serve immediately.'
+                ]
+            },
+            'grilled-veggies': {
+                title: 'Grilled Vegetable Platter',
+                image: 'https://s3.us-east-1.amazonaws.com/web.develop/KFAF/Grilled+Vegetable+Platter.jpg',
+                prepTime: '15 minutes',
+                cookTime: '10 minutes',
+                servings: '4',
+                ingredients: [
+                    '1 zucchini, sliced',
+                    '1 bell pepper, quartered',
+                    '1 eggplant, sliced',
+                    '1 red onion, cut into wedges',
+                    '2 tbsp olive oil',
+                    '1 tsp dried oregano',
+                    'Salt and pepper to taste'
+                ],
+                instructions: [
+                    'Preheat grill to medium heat.',
+                    'Toss vegetables with olive oil, oregano, salt, and pepper.',
+                    'Grill vegetables for 4-5 minutes per side until charred.',
+                    'Arrange on a platter and serve warm.'
+                ]
+            },
+            'vegetable-soup': {
+                title: 'Hearty Vegetable Soup',
+                image: 'https://s3.us-east-1.amazonaws.com/web.develop/KFAF/Hearty+Vegetable+Soup.jpg',
+                prepTime: '15 minutes',
+                cookTime: '30 minutes',
+                servings: '4',
+                ingredients: [
+                    '2 carrots, sliced',
+                    '2 potatoes, diced',
+                    '1 cup spinach',
+                    '1 onion, chopped',
+                    '2 cloves garlic, minced',
+                    '4 cups vegetable broth',
+                    '1 tbsp olive oil',
+                    'Salt and pepper to taste'
+                ],
+                instructions: [
+                    'Heat olive oil in a pot and sauté onion and garlic until soft.',
+                    'Add carrots and potatoes, cook for 5 minutes.',
+                    'Pour in vegetable broth and bring to a boil.',
+                    'Simmer for 15 minutes, then add spinach.',
+                    'Season with salt and pepper, serve hot.'
+                ]
+            },
+            'bbq-ribs': {
+                title: 'Smoky BBQ Ribs',
+                image: 'https://s3.us-east-1.amazonaws.com/web.develop/KFAF/Smoky+BBQ+Ribs.webp',
+                prepTime: '30 minutes',
+                cookTime: '3 hours',
+                servings: '4',
+                ingredients: [
+                    '2 lbs pork ribs',
+                    '1/2 cup BBQ sauce',
+                    '2 tbsp brown sugar',
+                    '1 tbsp smoked paprika',
+                    '1 tsp garlic powder',
+                    'Salt and pepper to taste'
+                ],
+                instructions: [
+                    'Mix brown sugar, paprika, garlic powder, salt, and pepper.',
+                    'Rub mixture over ribs and let marinate for 2 hours.',
+                    'Preheat oven to 275°F (135°C).',
+                    'Bake ribs for 3 hours, basting with BBQ sauce every 30 minutes.',
+                    'Grill for 5 minutes per side for a smoky finish.'
+                ]
+            },
+            'tropical-salad': {
+                title: 'Tropical Fruit Salad',
+                image: 'https://s3.us-east-1.amazonaws.com/web.develop/KFAF/Fruit+Salad.jpg',
+                prepTime: '15 minutes',
+                cookTime: '0 minutes',
+                servings: '4',
+                ingredients: [
+                    '1 cup mango, diced',
+                    '1 cup pineapple, diced',
+                    '1 cup papaya, diced',
+                    '1/4 cup shredded coconut',
+                    '2 tbsp lime juice',
+                    '1 tbsp honey'
+                ],
+                instructions: [
+                    'In a large bowl, combine mango, pineapple, and papaya.',
+                    'Mix lime juice and honey in a small bowl.',
+                    'Drizzle dressing over fruit and toss gently.',
+                    'Sprinkle with shredded coconut and serve chilled.'
+                ]
+            },
+            'herb-chicken': {
+                title: 'Herb Roasted Chicken with Root Vegetables',
+                image: 'https://s3.us-east-1.amazonaws.com/web.develop/KFAF/Herb+Roasted+Chicken.jpg',
+                prepTime: '30 minutes',
+                cookTime: '1 hour 15 minutes',
+                servings: '6',
+                ingredients: [
+                    '1 whole chicken (4-5 lbs)',
+                    '3 tbsp olive oil',
+                    '3 sprigs fresh rosemary',
+                    '3 sprigs fresh thyme',
+                    '4 cloves garlic, smashed',
+                    '2 carrots, chopped',
+                    '2 parsnips, chopped',
+                    '1 sweet potato, chopped',
+                    '1 onion, quartered',
+                    'Salt and pepper to taste',
+                    '1 lemon, halved'
+                ],
+                instructions: [
+                    'Preheat oven to 425°F (220°C).',
+                    'Pat chicken dry and season inside and out with salt and pepper.',
+                    'Stuff cavity with rosemary, thyme, garlic, and lemon halves.',
+                    'Tie legs together with kitchen twine and tuck wing tips under body.',
+                    'Place vegetables in roasting pan and drizzle with olive oil, salt, and pepper.',
+                    'Place chicken on top of vegetables and drizzle with remaining olive oil.',
+                    'Roast for 1 hour 15 minutes, or until internal temperature reaches 165°F (74°C).',
+                    'Let rest for 15 minutes before carving. Serve with roasted vegetables.'
+                ]
+            }
+        };
+        
+        // Copy to Clipboard function
+        function copyToClipboard(text, button) {
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(text).then(() => {
+                    showCopyNotification();
+                    button.classList.add('copied');
+                    button.textContent = 'Copied!';
+                    setTimeout(() => {
+                        button.classList.remove('copied');
+                        button.textContent = 'Copy';
+                    }, 2000);
+                }).catch(err => {
+                    console.error('Clipboard API failed:', err);
+                    fallbackCopy(text, button);
+                });
+            } else {
+                fallbackCopy(text, button);
+            }
+        }
+        
+        // Fallback Copy function
+        function fallbackCopy(text, button) {
+            const textarea = document.createElement('textarea');
+            textarea.value = text;
+            textarea.style.position = 'fixed';
+            textarea.style.opacity = '0';
+            document.body.appendChild(textarea);
+            textarea.select();
+            try {
+                document.execCommand('copy');
+                showCopyNotification();
+                button.classList.add('copied');
+                button.textContent = 'Copied!';
+                setTimeout(() => {
+                    button.classList.remove('copied');
+                    button.textContent = 'Copy';
+                }, 2000);
+            } catch (err) {
+                console.error('Fallback copy failed:', err);
+                alert('Failed to copy. Please copy manually: ' + text);
+            } finally {
+                document.body.removeChild(textarea);
+            }
+        }
+        
+        // Show copy notification
+        function showCopyNotification() {
+            const notification = document.getElementById('copy-notification');
+            notification.textContent = 'Account number copied!';
+            notification.style.display = 'block';
+            setTimeout(() => notification.style.display = 'none', 2000);
+        }
+        
+        // Add to Cart function
+        function addToCart(id, name, price) {
+            const parsedPrice = parseFloat(price);
+            let item = cart.items.find(i => i.id === id);
+            if (item) {
+                item.quantity += 1;
+            } else {
+                cart.items.push({ id, name, price: parsedPrice, quantity: 1 });
+            }
+            localStorage.setItem('cart', JSON.stringify(cart));
+            updateCartDisplay();
+            // Show notification
+            const notification = document.getElementById('cart-notification');
+            notification.textContent = `${name} added to cart!`;
+            notification.style.display = 'block';
+            setTimeout(() => notification.style.display = 'none', 2000);
+        }
+        
+        // Update cart display
+        function updateCartDisplay() {
+            let cartCount = document.getElementById('cart-count');
+            let cartItems = document.getElementById('cart-items');
+            let cartTotal = document.getElementById('cart-total');
+            cartItems.innerHTML = cart.items.length === 0 
+                ? '<li style="text-align: center; font-style: italic; padding: 2rem;">Your cart is empty.</li>'
+                : cart.items.map(item => `
+                    <li>
+                        <span>${item.name} - ₦${item.price.toFixed(2)} x ${item.quantity}</span>
+                        <div class="quantity-controls">
+                            <button onclick="updateQuantity('${item.id}', -1)">-</button>
+                            <button onclick="updateQuantity('${item.id}', 1)">+</button>
+                            <button class="remove" onclick="removeItem('${item.id}')">Remove</button>
+                        </div>
+                    </li>
+                `).join('');
+            cartTotal.textContent = `Total: ₦${cart.items.reduce((sum, i) => sum + i.price * i.quantity, 0).toFixed(2)}`;
+            cartCount.textContent = cart.items.reduce((sum, i) => sum + i.quantity, 0);
+        }
+        
+        // Update quantity
+        function updateQuantity(id, change) {
+            let item = cart.items.find(i => i.id === id);
+            if (item) {
+                item.quantity += change;
+                if (item.quantity <= 0) {
+                    cart.items = cart.items.filter(i => i.id !== id);
+                }
+                localStorage.setItem('cart', JSON.stringify(cart));
+                updateCartDisplay();
+            }
+        }
+        
+        // Remove item
+        function removeItem(id) {
+            cart.items = cart.items.filter(i => i.id !== id);
+            localStorage.setItem('cart', JSON.stringify(cart));
+            updateCartDisplay();
+        }
+        
+        // Show checkout modal
+        function showCheckout() {
+            if (cart.items.length === 0) {
+                alert('Your cart is empty! Add some items before checking out.');
+                return;
+            }
+            document.getElementById('cart-modal').style.display = 'none';
+            const checkoutModal = document.getElementById('checkout-modal');
+            const orderSummary = document.getElementById('order-summary');
+            orderSummary.innerHTML = `
+                <h3>Order Summary</h3>
+                <ul>
+                    ${cart.items.map(item => `
+                        <li>${item.name} - ₦${item.price.toFixed(2)} x ${item.quantity}</li>
+                    `).join('')}
+                </ul>
+                <p><strong>Total:</strong> ₦${cart.items.reduce((sum, i) => sum + i.price * i.quantity, 0).toFixed(2)}</p>
+            `;
+            checkoutModal.style.display = 'flex';
+        }
+        
+        // Send order to WhatsApp
+        function sendToWhatsApp() {
+            const total = cart.items.reduce((sum, i) => sum + i.price * i.quantity, 0).toFixed(2);
+            const message = `Order Details:
+${cart.items.map(item => `${item.name} - ${item.quantity} x ₦${item.price.toFixed(2)}`).join('\n')}
+Total: ₦${total}
+Please provide delivery details.`;
+            const encodedMessage = encodeURIComponent(message);
+            const whatsappNumber = '+2349120800600';
+            const whatsappUrl = `https://api.whatsapp.com/send?phone=${whatsappNumber}&text=${encodedMessage}`;
+            // Store message in hidden input for Getform.io submission
+            document.getElementById('whatsapp-message-input').value = message;
+            // Open WhatsApp in a new tab
+            window.open(whatsappUrl, '_blank');
+            // Show confirmation message
+            const checkoutMessage = document.getElementById('checkout-message');
+            checkoutMessage.innerHTML = '<p style="color: var(--success);">Order sent to WhatsApp! Please provide delivery details there.</p>';
+        }
+        
+        // Bottom Sheet Functions
+        function openBottomSheet() {
+            document.getElementById('bottom-sheet').classList.add('active');
+            document.getElementById('sheet-overlay').classList.add('active');
+        }
+        
+        function closeBottomSheet() {
+            document.getElementById('bottom-sheet').classList.remove('active');
+            document.getElementById('sheet-overlay').classList.remove('active');
+        }
+        
+        // Show recipe details
+        function showRecipeDetails(recipeId) {
+            const recipe = recipes[recipeId];
+            if (!recipe) return;
+            
+            document.getElementById('recipe-title').textContent = recipe.title;
+            document.getElementById('recipe-image').src = recipe.image;
+            document.getElementById('prep-time').textContent = recipe.prepTime;
+            document.getElementById('cook-time').textContent = recipe.cookTime;
+            document.getElementById('servings').textContent = recipe.servings;
+            document.getElementById('ingredients').innerHTML = recipe.ingredients.map(item => `<li>${item}</li>`).join('');
+            document.getElementById('instructions').innerHTML = recipe.instructions.map((step, i) => `<li>${step}</li>`).join('');
+            
+            document.getElementById('recipe-modal').style.display = 'flex';
+        }
+        
+        // Print recipe function
+        function printRecipe() {
+            const recipeTitle = document.getElementById('recipe-title').textContent;
+            const recipeImage = document.getElementById('recipe-image').src;
+            const prepTime = document.getElementById('prep-time').textContent;
+            const cookTime = document.getElementById('cook-time').textContent;
+            const servings = document.getElementById('servings').textContent;
+            const ingredients = document.getElementById('ingredients').innerHTML;
+            const instructions = document.getElementById('instructions').innerHTML;
+            
+            const printWindow = window.open('', '_blank');
+            printWindow.document.write(`
+                <!DOCTYPE html>
+                <html>
+                <head>
+                    <title>${recipeTitle}</title>
+                    <style>
+                        body { font-family: Arial, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; }
+                        h1 { color: #2E8B57; text-align: center; }
+                        .recipe-image { width: 100%; max-height: 300px; object-fit: cover; margin: 20px 0; }
+                        .meta { display: flex; justify-content: space-around; margin: 20px 0; }
+                        .meta div { text-align: center; }
+                        h2 { color: #2E8B57; margin: 20px 0 10px; }
+                        ul, ol { padding-left: 20px; }
+                        li { margin-bottom: 8px; }
+                    </style>
+                </head>
+                <body>
+                    <h1>${recipeTitle}</h1>
+                    <img class="recipe-image" src="${recipeImage}" alt="${recipeTitle}">
+                    <div class="meta">
+                        <div><strong>Prep Time:</strong><br>${prepTime}</div>
+                        <div><strong>Cook Time:</strong><br>${cookTime}</div>
+                        <div><strong>Servings:</strong><br>${servings}</div>
+                    </div>
+                    <h2>Ingredients</h2>
+                    <ul>${ingredients}</ul>
+                    <h2>Instructions</h2>
+                    <ol>${instructions}</ol>
+                </body>
+                </html>
+            `);
+            printWindow.document.close();
+            printWindow.focus();
+            setTimeout(() => {
+                printWindow.print();
+                printWindow.close();
+            }, 500);
+        }
+        
+        // Scroll to recipes section
+        function scrollToRecipes() {
+            document.getElementById('recipes-section').scrollIntoView({ behavior: 'smooth' });
+        }
+        
+        // Event Listeners
+        document.addEventListener('DOMContentLoaded', () => {
+            // Initialize cart display
+            updateCartDisplay();
+            
+            // Recipe filter buttons
+            document.querySelectorAll('.recipe-filter button').forEach(button => {
+                button.addEventListener('click', () => {
+                    document.querySelectorAll('.recipe-filter button').forEach(btn => btn.classList.remove('active'));
+                    button.classList.add('active');
+                    const type = button.dataset.type;
+                    
+                    document.querySelectorAll('.recipe-card').forEach(card => {
+                        if (type === 'all' || card.dataset.type === type) {
+                            card.style.display = 'block';
+                        } else {
+                            card.style.display = 'none';
+                        }
+                    });
+                });
+            });
+            
+            // Copy buttons for bank details
+            document.querySelectorAll('.copy-btn').forEach(button => {
+                button.addEventListener('click', () => {
+                    const text = button.dataset.text;
+                    copyToClipboard(text, button);
+                });
+            });
+            
+            // Cart icon click
+            document.querySelector('.cart-icon').addEventListener('click', () => {
+                document.getElementById('cart-modal').style.display = 'flex';
+            });
+            
+            // Close modal buttons
+            document.querySelectorAll('.cart-close, .checkout-close, .recipe-close, .cart-actions .cancel, .checkout-form .cancel').forEach(button => {
+                button.addEventListener('click', () => {
+                    document.getElementById('cart-modal').style.display = 'none';
+                    document.getElementById('checkout-modal').style.display = 'none';
+                    document.getElementById('recipe-modal').style.display = 'none';
+                });
+            });
+            
+            // Hamburger menu toggle
+            document.querySelector('.hamburger').addEventListener('click', () => {
+                document.querySelector('.nav-container').classList.toggle('active');
+            });
+            
+            // Dark mode toggle
+            document.getElementById('dark-mode-toggle').addEventListener('click', () => {
+                document.body.classList.toggle('dark-mode');
+                const icon = document.getElementById('dark-mode-toggle');
+                const mobileIcon = document.getElementById('mobile-dark-mode-toggle').querySelector('i');
+                if (document.body.classList.contains('dark-mode')) {
+                    icon.innerHTML = '<i class="fas fa-sun"></i>';
+                    mobileIcon.className = 'fas fa-sun';
+                    localStorage.setItem('darkMode', 'enabled');
+                } else {
+                    icon.innerHTML = '<i class="fas fa-moon"></i>';
+                    mobileIcon.className = 'fas fa-moon';
+                    localStorage.setItem('darkMode', 'disabled');
+                }
+            });
+            
+            // Mobile dark mode toggle
+            document.getElementById('mobile-dark-mode-toggle').addEventListener('click', () => {
+                document.body.classList.toggle('dark-mode');
+                const icon = document.getElementById('dark-mode-toggle');
+                const mobileIcon = document.getElementById('mobile-dark-mode-toggle').querySelector('i');
+                if (document.body.classList.contains('dark-mode')) {
+                    icon.innerHTML = '<i class="fas fa-sun"></i>';
+                    mobileIcon.className = 'fas fa-sun';
+                    localStorage.setItem('darkMode', 'enabled');
+                } else {
+                    icon.innerHTML = '<i class="fas fa-moon"></i>';
+                    mobileIcon.className = 'fas fa-moon';
+                    localStorage.setItem('darkMode', 'disabled');
+                }
+                closeBottomSheet();
+            });
+            
+            // Check for saved dark mode preference
+            if (localStorage.getItem('darkMode') === 'enabled') {
+                document.body.classList.add('dark-mode');
+                document.getElementById('dark-mode-toggle').innerHTML = '<i class="fas fa-sun"></i>';
+                document.getElementById('mobile-dark-mode-toggle').querySelector('i').className = 'fas fa-sun';
+            }
+            
+            // Hero carousel
+            const slides = document.querySelectorAll('.hero-slide');
+            let currentSlide = 0;
+            function showSlide(index) {
+                slides.forEach((slide, i) => {
+                    slide.classList.toggle('active', i === index);
+                });
+            }
+            setInterval(() => {
+                currentSlide = (currentSlide + 1) % slides.length;
+                showSlide(currentSlide);
+            }, 5000);
+            
+            // Scroll animations
+            const sections = document.querySelectorAll('.section');
+            const observer = new IntersectionObserver(entries => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, { threshold: 0.1 });
+            sections.forEach(section => observer.observe(section));
+            
+            // Checkout form submission
+            document.getElementById('checkout-form').addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const form = e.target;
+                const submitButton = form.querySelector('button[type="submit"]');
+                const messageDiv = document.getElementById('checkout-message');
+                // Add loading state
+                submitButton.classList.add('loading');
+                submitButton.disabled = true;
+                // Prepare form data
+                const formData = new FormData(form);
+                formData.set('cart_items', JSON.stringify(cart.items));
+                formData.set('total', cart.items.reduce((sum, i) => sum + i.price * i.quantity, 0).toFixed(2));
+                try {
+                    const response = await fetch(form.action, {
+                        method: 'POST',
+                        body: formData
+                    });
+                    if (response.ok) {
+                        messageDiv.innerHTML = '<p style="color: var(--success);">Proof of payment submitted successfully!</p>';
+                        form.reset();
+                        cart.items = [];
+                        localStorage.setItem('cart', JSON.stringify(cart));
+                        updateCartDisplay();
+                        setTimeout(() => {
+                            document.getElementById('checkout-modal').style.display = 'none';
+                        }, 2000);
+                    } else {
+                        messageDiv.innerHTML = '<p style="color: var(--error);">Failed to submit proof. Please try again.</p>';
+                    }
+                } catch (error) {
+                    console.error('Submission error:', error);
+                    messageDiv.innerHTML = '<p style="color: var(--error);">An error occurred. Please try again.</p>';
+                } finally {
+                    submitButton.classList.remove('loading');
+                    submitButton.disabled = false;
+                }
+            });
+            
+            // Newsletter form submission
+            document.getElementById('newsletter-form').addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const form = e.target;
+                const messageDiv = form.querySelector('.form-message');
+                const submitButton = form.querySelector('button');
+                submitButton.classList.add('loading');
+                submitButton.disabled = true;
+                try {
+                    const response = await fetch(form.action, {
+                        method: 'POST',
+                        body: new FormData(form)
+                    });
+                    if (response.ok) {
+                        messageDiv.textContent = 'Thank you for subscribing!';
+                        messageDiv.classList.add('success');
+                        form.reset();
+                    } else {
+                        messageDiv.textContent = 'Subscription failed. Please try again.';
+                        messageDiv.classList.add('error');
+                    }
+                } catch (error) {
+                    console.error('Newsletter error:', error);
+                    messageDiv.textContent = 'An error occurred. Please try again.';
+                    messageDiv.classList.add('error');
+                } finally {
+                    submitButton.classList.remove('loading');
+                    submitButton.disabled = false;
+                    setTimeout(() => {
+                        messageDiv.textContent = '';
+                        messageDiv.classList.remove('success', 'error');
+                    }, 5000);
+                }
+            });
+            
+            // Bottom sheet functionality
+            document.querySelector('.mobile-nav-item.active').addEventListener('click', (e) => {
+                e.preventDefault();
+                openBottomSheet();
+            });
+            document.getElementById('sheet-overlay').addEventListener('click', closeBottomSheet);
+            // Swipe down to close bottom sheet
+            let startY = 0;
+            const bottomSheet = document.getElementById('bottom-sheet');
+            bottomSheet.addEventListener('touchstart', (e) => {
+                startY = e.touches[0].clientY;
+            });
+            bottomSheet.addEventListener('touchmove', (e) => {
+                const currentY = e.touches[0].clientY;
+                if (currentY - startY > 50) {
+                    closeBottomSheet();
+                }
+            });
+        });
+    </script>
+</body>
+</html>
+

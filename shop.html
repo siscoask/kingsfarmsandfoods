@@ -1,0 +1,2074 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>King's Farm and Foods - Shop</title>
+    <!-- Preload a sample product image -->
+    <link rel="preload" href="chicken.jpg" as="image">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Raleway:wght@300;400;600&display=swap" rel="stylesheet">
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* CSS Variables for Colors (Modern Farm Theme) */
+        :root {
+            --bg-primary: #F8FBF8; /* Light Greenish White */
+            --bg-secondary: #EDF5ED; /* Soft Green for sections */
+            --accent-primary: #2E8B57; /* Sea Green */
+            --accent-secondary: #4CAF50; /* Fresh Green for accents */
+            --accent-gold: #C9A227; /* Muted Gold for accents */
+            --text-primary: #1A331A; /* Dark Green for main text */
+            --text-secondary: #3D5C3D; /* Medium Green for secondary text */
+            --success: #2E8B57; /* Green for success */
+            --error: #D32F2F; /* Red for errors */
+            --footer-bg: #1B3C1B; /* Dark Green for Footer */
+            --footer-text: #E8F5E8; /* Light text for footer */
+            --card-bg: #FFFFFF; /* White for cards */
+            --shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            --shadow-hover: 0 8px 24px rgba(0, 0, 0, 0.12);
+        }
+        .dark-mode {
+            --bg-primary: #1A1F1A; /* Dark Gray-Green for modern base */
+            --bg-secondary: #252B25; /* Slightly lighter gray-green for sections */
+            --accent-primary: #3CB371;
+            --accent-secondary: #4CAF50;
+            --accent-gold: #D4AF37;
+            --text-primary: #E8F5E8; /* Light Green for main text */
+            --text-secondary: #C8E6C8; /* Light Gray-Green for secondary text */
+            --success: #4CAF50;
+            --error: #F44336;
+            --footer-bg: #0F1A0F;
+            --footer-text: #E8F5E8;
+            --card-bg: #252B25;
+            --shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            --shadow-hover: 0 8px 24px rgba(0, 0, 0, 0.3);
+        }
+        /* General Styles */
+        * { 
+            margin: 0; 
+            padding: 0; 
+            box-sizing: border-box; 
+        }
+        html {
+            scroll-behavior: smooth;
+        }
+        body {
+            font-family: 'Raleway', sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s;
+        }
+        .dark-mode header {
+            background-color: rgba(37, 43, 37, 0.95);
+        }
+        .top-bar {
+            background: var(--accent-primary);
+            color: #FFFFFF;
+            text-align: center;
+            padding: 0.5rem;
+            font-size: 0.9rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+        }
+        .main-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: var(--accent-primary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .logo i {
+            font-size: 1.8rem;
+        }
+        .nav-container {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+        nav { 
+            display: flex; 
+            gap: 1.5rem; 
+            position: relative; 
+        }
+        nav a {
+            color: var(--text-primary);
+            text-decoration: none;
+            font-weight: 500;
+            position: relative;
+            padding: 0.2rem 0;
+            transition: color 0.3s;
+        }
+        nav a::before {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--accent-primary), var(--accent-gold));
+            transition: width 0.4s ease;
+        }
+        nav a:hover::before {
+            width: 100%;
+        }
+        nav a:hover {
+            color: var(--accent-primary);
+        }
+        .header-icons { 
+            display: flex; 
+            gap: 1.2rem; 
+            align-items: center; 
+        }
+        .cart-icon { 
+            position: relative; 
+            cursor: pointer; 
+            font-size: 1.3rem; 
+            color: var(--text-primary);
+            transition: color 0.3s;
+        }
+        .cart-icon:hover { 
+            color: var(--accent-primary); 
+        }
+        #cart-count {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: var(--accent-primary);
+            color: #FFFFFF;
+            border-radius: 50%;
+            padding: 2px 6px;
+            font-size: 0.7rem;
+            min-width: 18px;
+            text-align: center;
+        }
+        #dark-mode-toggle { 
+            cursor: pointer; 
+            font-size: 1.3rem; 
+            color: var(--text-primary);
+            transition: color 0.3s;
+        }
+        #dark-mode-toggle:hover { 
+            color: var(--accent-primary); 
+        }
+        .hamburger { 
+            display: none; 
+            font-size: 1.5rem; 
+            cursor: pointer; 
+            color: var(--text-primary); 
+        }
+        .hamburger:hover { 
+            color: var(--accent-primary); 
+        }
+        .nav-header { 
+            display: none; 
+        }
+        /* Bottom Navigation (Mobile Only) */
+        .bottom-nav {
+            display: none;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: var(--card-bg);
+            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+            z-index: 1001;
+            padding: 0.75rem 0;
+        }
+        .bottom-nav ul {
+            display: flex;
+            justify-content: space-around;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+        .bottom-nav li {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            text-decoration: none;
+            cursor: pointer;
+        }
+        .bottom-nav li.active, .bottom-nav li:hover {
+            color: var(--accent-primary);
+        }
+        .bottom-nav i {
+            font-size: 1.25rem;
+            margin-bottom: 0.25rem;
+        }
+        /* Bottom Sheet (More Menu) */
+        #more-sheet {
+            display: none;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            max-height: 50vh;
+            background: var(--card-bg);
+            border-top-left-radius: 20px;
+            border-top-right-radius: 20px;
+            box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.15);
+            z-index: 1002;
+            overflow: hidden;
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
+        }
+        #more-sheet.active {
+            display: block;
+            transform: translateY(0);
+        }
+        .sheet-handle {
+            width: 40px;
+            height: 4px;
+            background: var(--text-secondary);
+            border-radius: 2px;
+            margin: 12px auto;
+            opacity: 0.6;
+        }
+        .sheet-menu {
+            padding: 0 1.5rem 1.5rem;
+        }
+        .sheet-menu a, .sheet-menu button {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 1rem 0;
+            color: var(--text-primary);
+            text-decoration: none;
+            font-size: 1rem;
+            width: 100%;
+            background: none;
+            border: none;
+            text-align: left;
+            cursor: pointer;
+        }
+        .sheet-menu a:hover, .sheet-menu button:hover {
+            color: var(--accent-primary);
+        }
+        .sheet-menu i {
+            font-size: 1.25rem;
+            color: var(--accent-primary);
+            width: 24px;
+            text-align: center;
+        }
+        .sheet-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1001;
+        }
+        .sheet-overlay.active {
+            display: block;
+        }
+        /* Hero Section */
+        .hero {
+            position: relative;
+            height: 100vh;
+            min-height: 600px;
+            overflow: hidden;
+            text-align: center;
+            background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+            margin-top: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.3);
+            z-index: 1;
+        }
+        .hero-slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 1;
+        }
+        .hero-slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            animation: zoomIn 15s ease-in-out infinite;
+        }
+        @keyframes zoomIn {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            color: #FFFFFF;
+            text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            width: 90%;
+            max-width: 800px;
+            padding: 2rem;
+        }
+        .hero-content h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 4rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            animation: fadeInUp 1s ease-out;
+        }
+        .hero-content p {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            animation: fadeInUp 1s ease-out 0.3s both;
+        }
+        .hero-content button {
+            background: var(--accent-gold);
+            color: #FFFFFF;
+            border: none;
+            padding: 1.2rem 2.5rem;
+            font-size: 1.2rem;
+            cursor: pointer;
+            border-radius: 30px;
+            transition: all 0.3s;
+            animation: fadeInUp 1s ease-out 0.6s both;
+            font-weight: 600;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+        .hero-content button:hover {
+            background: #D9B43A;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25);
+        }
+        @keyframes fadeInUp {
+            0% { 
+                opacity: 0; 
+                transform: translateY(30px); 
+            }
+            100% { 
+                opacity: 1; 
+                transform: translateY(0); 
+            }
+        }
+        /* Main Content */
+        main { 
+            padding: 4rem 2rem; 
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .section {
+            position: relative;
+            margin: 5rem 0;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+        .section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.8rem;
+            color: var(--accent-primary);
+            margin-bottom: 2rem;
+            text-align: center;
+            position: relative;
+            padding-bottom: 1.5rem;
+        }
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(to right, var(--accent-primary), var(--accent-gold));
+            border-radius: 2px;
+        }
+        .section p {
+            font-size: 1.2rem;
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 2rem;
+            color: var(--text-secondary);
+        }
+        /* Product Grid */
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        .product-card {
+            background: var(--card-bg);
+            padding: 1.5rem;
+            border-radius: 15px;
+            text-align: center;
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow);
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            overflow: hidden;
+        }
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-hover);
+        }
+        .product-card .image-wrapper {
+            position: relative;
+            width: 100%;
+            padding-top: 75%;
+            margin-bottom: 1.5rem;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        .product-card img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+            border-radius: 10px;
+            transition: transform 0.5s;
+        }
+        .product-card:hover img {
+            transform: scale(1.1);
+        }
+        .product-card h3 {
+            font-size: 1.4rem;
+            margin: 0.5rem 0;
+            color: var(--accent-primary);
+        }
+        .product-card .price {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--accent-gold);
+            margin: 0.5rem 0;
+        }
+        .product-card .description { 
+            font-size: 1rem; 
+            margin-bottom: 1.5rem; 
+            color: var(--text-secondary);
+            flex-grow: 1;
+        }
+        .product-card button {
+            background: var(--accent-primary);
+            color: #FFFFFF;
+            border: none;
+            padding: 0.9rem 1.5rem;
+            cursor: pointer;
+            border-radius: 30px;
+            transition: all 0.3s;
+            font-weight: 600;
+            width: 100%;
+            font-size: 1rem;
+        }
+        .product-card button:hover {
+            background: var(--accent-secondary);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        /* Cart Modal */
+        #cart-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+        }
+        .cart-container {
+            background: var(--card-bg);
+            padding: 2.5rem;
+            border-radius: 20px;
+            max-width: 700px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            position: relative;
+        }
+        .cart-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 1.5rem;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+        .cart-close:hover {
+            color: var(--accent-primary);
+        }
+        #cart-modal h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.2rem;
+            color: var(--accent-primary);
+            margin-bottom: 1.5rem;
+            text-align: center;
+            padding-right: 30px;
+        }
+        #cart-items {
+            list-style: none;
+            margin-bottom: 2rem;
+        }
+        #cart-items li {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.2rem;
+            margin-bottom: 1rem;
+            background: var(--bg-secondary);
+            border-radius: 10px;
+            font-size: 1.1rem;
+        }
+        #cart-items li span {
+            flex: 1;
+            font-weight: 500;
+        }
+        #cart-items li .quantity-controls {
+            display: flex;
+            gap: 0.8rem;
+            align-items: center;
+        }
+        #cart-items li button {
+            background: var(--accent-primary);
+            color: #FFFFFF;
+            border: none;
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 1rem;
+            transition: background 0.3s;
+            min-width: 40px;
+        }
+        #cart-items li button:hover {
+            background: var(--accent-secondary);
+        }
+        #cart-items li button.remove {
+            background: var(--error);
+        }
+        #cart-items li button.remove:hover {
+            background: #E53935;
+        }
+        #cart-total {
+            font-size: 1.5rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 2rem;
+            color: var(--accent-primary);
+            padding: 1rem;
+            background: var(--bg-secondary);
+            border-radius: 10px;
+        }
+        .cart-actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+        }
+        .cart-actions button {
+            background: var(--accent-primary);
+            color: #FFFFFF;
+            border: none;
+            padding: 1rem 2rem;
+            cursor: pointer;
+            border-radius: 30px;
+            font-size: 1.1rem;
+            transition: all 0.3s;
+            font-weight: 600;
+            flex: 1;
+            max-width: 200px;
+        }
+        .cart-actions button:hover {
+            background: var(--accent-secondary);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        /* Checkout Modal */
+        #checkout-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+        }
+        .checkout-container {
+            background: var(--card-bg);
+            padding: 2.5rem;
+            border-radius: 20px;
+            max-width: 800px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            position: relative;
+        }
+        .checkout-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 1.5rem;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+        .checkout-close:hover {
+            color: var(--accent-primary);
+        }
+        #checkout-modal h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            color: var(--accent-primary);
+            margin-bottom: 1.5rem;
+            text-align: center;
+            padding-right: 30px;
+        }
+        #order-summary {
+            background: var(--bg-secondary);
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin-bottom: 2rem;
+        }
+        #order-summary h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            color: var(--accent-primary);
+            margin-bottom: 1rem;
+        }
+        #order-summary ul {
+            list-style: none;
+            margin-bottom: 1rem;
+        }
+        #order-summary li {
+            font-size: 1rem;
+            margin-bottom: 0.5rem;
+            display: flex;
+            justify-content: space-between;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        }
+        .dark-mode #order-summary li {
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        #order-summary p {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--accent-primary);
+            text-align: right;
+            margin-top: 1rem;
+        }
+        .bank-details {
+            margin-bottom: 2rem;
+        }
+        .bank-details h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            color: var(--accent-primary);
+            margin-bottom: 1rem;
+        }
+        .bank-details .bank-card {
+            background: var(--bg-secondary);
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin-bottom: 1.5rem;
+            transition: all 0.3s ease;
+            border-left: 4px solid var(--accent-primary);
+        }
+        .bank-details .bank-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow);
+        }
+        .bank-details p {
+            font-size: 1.1rem;
+            margin: 0.5rem 0;
+        }
+        .bank-details .copy-btn {
+            background: var(--accent-primary);
+            color: #FFFFFF;
+            border: none;
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 0.9rem;
+            transition: background 0.3s;
+            margin-left: 0.5rem;
+        }
+        .bank-details .copy-btn:hover {
+            background: var(--accent-secondary);
+        }
+        .bank-details .copy-btn.copied {
+            background: var(--success);
+        }
+        .checkout-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+        .checkout-form .file-upload {
+            position: relative;
+            padding: 1.5rem;
+            border: 2px dashed var(--accent-primary);
+            border-radius: 10px;
+            text-align: center;
+            background: var(--bg-secondary);
+            transition: background 0.3s;
+        }
+        .checkout-form .file-upload:hover {
+            background: var(--bg-primary);
+        }
+        .checkout-form .file-upload input[type="file"] {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            cursor: pointer;
+        }
+        .checkout-form .file-upload label {
+            font-size: 1.1rem;
+            color: var(--text-primary);
+            cursor: pointer;
+        }
+        .checkout-form .file-upload i {
+            font-size: 2rem;
+            color: var(--accent-primary);
+            margin-bottom: 0.5rem;
+        }
+        .checkout-form .actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .checkout-form button {
+            background: var(--accent-primary);
+            color: #FFFFFF;
+            border: none;
+            padding: 1rem 2rem;
+            cursor: pointer;
+            border-radius: 30px;
+            font-size: 1.1rem;
+            transition: all 0.3s;
+            font-weight: 600;
+            flex: 1;
+            min-width: 180px;
+            max-width: 250px;
+        }
+        .checkout-form button:hover {
+            background: var(--accent-secondary);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .checkout-form button.cancel {
+            background: var(--text-secondary);
+        }
+        .checkout-form button.cancel:hover {
+            background: var(--text-primary);
+        }
+        #checkout-message {
+            text-align: center;
+            margin-top: 1rem;
+            font-weight: 600;
+        }
+        /* Notification Styling */
+        #cart-notification, #copy-notification {
+            display: none;
+            position: fixed;
+            top: 100px;
+            right: 20px;
+            background: var(--success);
+            color: #fff;
+            padding: 1rem 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            z-index: 2000;
+            font-weight: 600;
+        }
+        /* Loading Animation */
+        .loading {
+            position: relative;
+            pointer-events: none;
+        }
+        .loading::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 24px;
+            height: 24px;
+            border: 3px solid #FFFFFF;
+            border-top: 3px solid transparent;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            transform: translate(-50%, -50%);
+        }
+        @keyframes spin {
+            0% { transform: translate(-50%, -50%) rotate(0deg); }
+            100% { transform: translate(-50%, -50%) rotate(360deg); }
+        }
+        /* Footer */
+        footer {
+            background: var(--footer-bg);
+            color: var(--footer-text);
+            padding: 4rem 1rem 2rem;
+            margin-top: 4rem;
+        }
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 2.5rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        footer h3 {
+            font-family: 'Playfair Display', serif;
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #FFFFFF;
+        }
+        footer p, footer a {
+            color: var(--footer-text);
+            text-decoration: none;
+            margin: 0.7rem 0;
+            transition: all 0.3s ease;
+        }
+        footer a:hover {
+            color: var(--accent-gold);
+            padding-left: 5px;
+        }
+        footer p i { 
+            margin-right: 0.5rem; 
+            color: var(--accent-gold); 
+            width: 20px;
+            text-align: center;
+        }
+        footer form { 
+            display: flex; 
+            flex-direction: column; 
+            gap: 0.8rem; 
+        }
+        footer input {
+            padding: 0.8rem;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 5px;
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--footer-text);
+            transition: box-shadow 0.3s;
+        }
+        footer input:focus {
+            box-shadow: 0 0 0 2px var(--accent-gold);
+            outline: none;
+        }
+        footer button {
+            background: var(--accent-gold);
+            color: #FFFFFF;
+            border: none;
+            padding: 0.8rem;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background 0.3s;
+            font-weight: 600;
+        }
+        footer button:hover {
+            background: #D9B43A;
+        }
+        .form-message { 
+            text-align: center; 
+            margin-top: 0.5rem; 
+            font-size: 0.9rem;
+        }
+        .success { 
+            color: var(--success); 
+        }
+        .error { 
+            color: var(--error); 
+        }
+        .social-icons { 
+            display: flex; 
+            gap: 1rem; 
+            margin-top: 1rem;
+        }
+        .social-icons a {
+            font-size: 1.5rem;
+            color: var(--footer-text);
+            transition: all 0.3s;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+        }
+        .social-icons a:hover {
+            color: var(--accent-gold);
+            transform: translateY(-3px);
+            background: rgba(255, 255, 255, 0.2);
+        }
+        .back-to-top {
+            text-align: center;
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .back-to-top a {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 0.8rem 1.5rem;
+            background: var(--accent-gold);
+            color: #FFFFFF;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        .back-to-top a:hover {
+            background: #D9B43A;
+            transform: translateY(-3px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        .copyright {
+            text-align: center;
+            margin-top: 2rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.7);
+        }
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .main-header { padding: 1rem; }
+            .logo { font-size: 1.8rem; }
+            .hero-content h1 { font-size: 3.5rem; }
+            .hero-content p { font-size: 1.3rem; }
+            .hero-content button { padding: 1rem 2rem; font-size: 1.1rem; }
+        }
+        @media (max-width: 768px) {
+            .top-bar {
+                display: none;
+            }
+            .main-header { 
+                padding: 0.8rem 1rem; 
+            }
+            .logo {
+                font-size: 1.5rem;
+            }
+            .logo span.full-text {
+                display: inline;
+            }
+            .logo span.mobile-text {
+                display: none;
+            }
+            .nav-container,
+            .hamburger,
+            #dark-mode-toggle {
+                display: none !important;
+            }
+            .header-icons {
+                margin-left: auto;
+            }
+            .cart-icon {
+                margin-right: 0;
+            }
+            .hero {
+                margin-top: 0;
+                height: 70vh;
+                min-height: 500px;
+            }
+            .hero-content h1 { font-size: 2.5rem; }
+            .hero-content p { font-size: 1.1rem; }
+            .hero-content button { padding: 0.9rem 1.8rem; font-size: 1rem; }
+            /* Mobile Header Adjustments */
+            .logo span.full-text {
+                display: none;
+            }
+            .logo span.mobile-text {
+                display: inline;
+                font-size: 1.3rem;
+                font-weight: 600;
+            }
+            /* Bottom Navigation */
+            .bottom-nav {
+                display: block;
+            }
+            main {
+                padding-bottom: 80px; /* Space for bottom nav */
+            }
+            .section { margin: 3rem 0; }
+            .section-title { font-size: 2rem; }
+            .section p { font-size: 1rem; }
+            .product-grid { grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; }
+            .product-card { padding: 1.2rem; }
+            .product-card h3 { font-size: 1.2rem; }
+            .product-card .price { font-size: 1.1rem; }
+            .product-card .description { font-size: 0.9rem; }
+            .product-card button { padding: 0.8rem 1.2rem; font-size: 0.9rem; }
+        }
+        @media (max-width: 480px) {
+            .main-header { padding: 0.5rem; }
+            .logo { font-size: 1.3rem; }
+            .logo span.mobile-text {
+                font-size: 1.2rem;
+            }
+            .hero {
+                height: 60vh;
+                min-height: 400px;
+            }
+            .hero-content { padding: 1rem; }
+            .hero-content h1 { font-size: 2rem; }
+            .hero-content p { font-size: 1rem; }
+            .hero-content button { padding: 0.8rem 1.5rem; font-size: 0.9rem; }
+            main { padding: 1.5rem 0.5rem 60px; }
+            .section { margin: 2.5rem 0; }
+            .section-title { font-size: 1.7rem; }
+            .section p { font-size: 0.9rem; }
+            .product-grid { grid-template-columns: 1fr; gap: 1.2rem; }
+            .product-card { padding: 1rem; }
+            .product-card h3 { font-size: 1.1rem; }
+            .product-card .price { font-size: 1rem; }
+            .product-card .description { font-size: 0.85rem; }
+            .product-card button { padding: 0.7rem 1rem; font-size: 0.9rem; }
+            .cart-container, .checkout-container {
+                padding: 1.2rem;
+                border-radius: 15px;
+            }
+            #cart-modal h2, #checkout-modal h2 { font-size: 1.5rem; }
+            #cart-items li { padding: 0.8rem; font-size: 0.9rem; }
+            #cart-total { font-size: 1.3rem; }
+            .cart-actions button, .checkout-form button {
+                padding: 0.8rem 1.2rem;
+                font-size: 1rem;
+            }
+
+        /* Enhanced Notification Styling */
+#cart-notification {
+    display: none;
+    position: fixed;
+    top: 100px;
+    right: 20px;
+    background: var(--success);
+    color: #fff;
+    padding: 1rem 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    z-index: 2000;
+    font-weight: 600;
+    transform: translateX(100%);
+    opacity: 0;
+    transition: all 0.3s ease;
+}
+
+#cart-notification.show {
+    transform: translateX(0);
+    opacity: 1;
+}
+
+/* Mobile notification positioning */
+@media (max-width: 768px) {
+    #cart-notification {
+        top: 80px;
+        right: 10px;
+        left: 10px;
+        transform: translateY(-100%);
+    }
+    
+    #cart-notification.show {
+        transform: translateY(0);
+    }
+}
+            footer { padding: 2rem 0.5rem 1rem; }
+            .footer-content { gap: 1.5rem; }
+            footer h3 { font-size: 1.2rem; }
+            footer p, footer a { font-size: 0.85rem; }
+            .social-icons a { font-size: 1.3rem; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Notification Area -->
+    <div id="cart-notification"></div>
+    <div id="copy-notification"></div>
+    <!-- Header -->
+    <header>
+        <div class="top-bar">
+            <i class="fas fa-truck"></i>
+            Free Delivery on Orders Over ₦10,000!
+            <i class="fas fa-truck"></i>
+        </div>
+        <div class="main-header">
+            <div class="logo">
+                <i class="fas fa-crown"></i>
+                <span class="full-text">King's Farms and Foods</span>
+                <span class="mobile-text"></span>
+            </div>
+            <div class="nav-container">
+                <nav>
+                    <a href="index.html">Home</a>
+                    <a href="about.html">About Us</a>
+                    <a href="shop.html">Shop</a>
+                    <a href="recipes.html">Recipes</a>
+                    <a href="care-tips.html">Care & Tips</a>
+                    <a href="blog.html">Blog</a>
+                    <a href="contact.html">Contact</a>
+                </nav>
+            </div>
+            <div class="header-icons">
+                <div class="cart-icon">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span id="cart-count">0</span>
+                </div>
+                <span id="dark-mode-toggle"><i class="fas fa-moon"></i></span>
+                <span class="hamburger"><i class="fas fa-bars"></i></span>
+            </div>
+        </div>
+    </header>
+    <!-- Hero Section -->
+    <section class="hero" id="shop">
+        <div class="hero-slide">
+            <img src="https://i.pinimg.com/736x/56/0e/fa/560efa36c00b3f25ec8fab0fd58a13a9.jpg" alt="King's Farm Shop">
+        </div>
+        <div class="hero-content">
+            <h1>Shop Fresh from King's Farms</h1>
+            <p>Explore our range of organic poultry, produce, feeds, and more, all sustainably sourced.</p>
+            <button onclick="window.location.href='#poultry'">Shop Now</button>
+        </div>
+    </section>
+    <!-- Main Content -->
+    <main>
+        <section class="section" id="poultry">
+            <h2 class="section-title">Poultry Production</h2>
+            <p>Fresh, free-range poultry products raised with care and quality.</p>
+            <div class="product-grid">
+                <div class="product-card">
+                    <div class="image-wrapper">
+                        <img src="https://i.pinimg.com/736x/6c/5b/7c/6c5b7ce3957c5fc0f1111cfb6f2bb4f8.jpg" alt="Whole Chicken" loading="lazy">
+                    </div>
+                    <h3>Whole Chicken</h3>
+                    <div class="price">₦12,500/kg</div>
+                    <p class="description">Fresh, whole chicken from our farm.</p>
+                    <button data-id="p1" data-name="Whole Chicken" data-price="12500">Add to Cart</button>
+                </div>
+                <div class="product-card">
+                    <div class="image-wrapper">
+                        <img src="https://i.pinimg.com/736x/3a/7c/ea/3a7cea7e300ce125996a058690af66b9.jpg" alt="Chicken Breast" loading="lazy">
+                    </div>
+                    <h3>Chicken Breast</h3>
+                    <div class="price">₦15,000/kg</div>
+                    <p class="description">Tender, boneless chicken breast.</p>
+                    <button data-id="p2" data-name="Chicken Breast" data-price="15000">Add to Cart</button>
+                </div>
+                <div class="product-card">
+                    <div class="image-wrapper">
+                        <img src="https://i.pinimg.com/736x/64/cb/10/64cb1093d627639e180287f3129aa3ca.jpg" alt="Chicken Wings" loading="lazy">
+                    </div>
+                    <h3>Chicken Wings</h3>
+                    <div class="price">₦11,000/kg</div>
+                    <p class="description">Juicy chicken wings, perfect for grilling.</p>
+                    <button data-id="p3" data-name="Chicken Wings" data-price="11000">Add to Cart</button>
+                </div>
+                <div class="product-card">
+                    <div class="image-wrapper">
+                        <img src="https://i.pinimg.com/1200x/b5/70/aa/b570aa5c965b66ac39a58ef0cf0541b1.jpg" alt="Whole Turkey" loading="lazy">
+                    </div>
+                    <h3>Whole Turkey</h3>
+                    <div class="price">₦18,500/kg</div>
+                    <p class="description">Farm-raised turkey for special occasions.</p>
+                    <button data-id="p4" data-name="Whole Turkey" data-price="18500">Add to Cart</button>
+                </div>
+                <div class="product-card">
+                    <div class="image-wrapper">
+                        <img src="https://i.pinimg.com/736x/61/71/49/61714914e016b0606dc24c4c4843e216.jpg" alt="Farm-Fresh Eggs" loading="lazy">
+                    </div>
+                    <h3>Farm-Fresh Eggs</h3>
+                    <div class="price">₦3,200/crate</div>
+                    <p class="description">30 eggs per crate, laid daily.</p>
+                    <button data-id="p5" data-name="Farm-Fresh Eggs" data-price="3200">Add to Cart</button>
+                </div>
+                <div class="product-card">
+                    <div class="image-wrapper">
+                        <img src="https://i.pinimg.com/736x/61/f2/9e/61f29e5401086ea570a319b77bf32a1b.jpg" alt="Chicken Thighs" loading="lazy">
+                    </div>
+                    <h3>Chicken Thighs</h3>
+                    <div class="price">₦13,500/kg</div>
+                    <p class="description">Flavorful chicken thighs, bone-in.</p>
+                    <button data-id="p6" data-name="Chicken Thighs" data-price="13500">Add to Cart</button>
+                </div>
+            </div>
+        </section>
+        <section class="section" id="agroprocessing">
+            <h2 class="section-title">Agroprocessing</h2>
+            <p>Organic, processed foods crafted with traditional and modern techniques.</p>
+            <div class="product-grid">
+                <div class="product-card">
+                    <div class="image-wrapper">
+                        <img src="https://i.pinimg.com/736x/4f/7f/d8/4f7fd8d940600d1f2b80a8475da29d70.jpg" alt="Pure Honey" loading="lazy">
+                    </div>
+                    <h3>Pure Honey</h3>
+                    <div class="price">₦7,500/litre</div>
+                    <p class="description">Unfiltered, raw honey from our hives.</p>
+                    <button data-id="a1" data-name="Pure Honey" data-price="7500">Add to Cart</button>
+                </div>
+                <div class="product-card">
+                    <div class="image-wrapper">
+                        <img src="https://i.pinimg.com/736x/8d/b3/55/8db3554cae0112392e83daa80d99aee6.jpg" alt="Palm Oil" loading="lazy">
+                    </div>
+                    <h3>Palm Oil</h3>
+                    <div class="price">₦9,000/litre</div>
+                    <p class="description">Red palm oil, cold-pressed.</p>
+                    <button data-id="a2" data-name="Palm Oil" data-price="9000">Add to Cart</button>
+                </div>
+                <div class="product-card">
+                    <div class="image-wrapper">
+                        <img src="https://i.pinimg.com/1200x/77/5d/69/775d697d372a4ba0da14239005836e92.jpg" alt="Yam Flour" loading="lazy">
+                    </div>
+                    <h3>Yam Flour</h3>
+                    <div class="price">₦4,500/kg</div>
+                    <p class="description">100% pure yam flour for fufu.</p>
+                    <button data-id="a3" data-name="Yam Flour" data-price="4500">Add to Cart</button>
+                </div>
+                <div class="product-card">
+                    <div class="image-wrapper">
+                        <img src="https://i.pinimg.com/736x/fe/6d/b5/fe6db5d2c023758f3f01b80163b33396.jpg" alt="Garri" loading="lazy">
+                    </div>
+                    <h3>Garri</h3>
+                    <div class="price">₦3,800/kg</div>
+                    <p class="description">Crispy, white garri from cassava.</p>
+                    <button data-id="a4" data-name="Garri" data-price="3800">Add to Cart</button>
+                </div>
+                <div class="product-card">
+                    <div class="image-wrapper">
+                        <img src="https://i.pinimg.com/736x/b5/e7/61/b5e7611f126a5025a97cc96585b7c012.jpg" alt="Plantain Flour" loading="lazy">
+                    </div>
+                    <h3>Plantain Flour</h3>
+                    <div class="price">₦5,200/kg</div>
+                    <p class="description">Gluten-free plantain flour.</p>
+                    <button data-id="a5" data-name="Plantain Flour" data-price="5200">Add to Cart</button>
+                </div>
+                <div class="product-card">
+                    <div class="image-wrapper">
+                        <img src="https://i.pinimg.com/736x/20/a6/e1/20a6e1d28e48bbc4a0714864ef997428.jpg" alt="Cassava Flour" loading="lazy">
+                    </div>
+                    <h3>Cassava Flour</h3>
+                    <div class="price">₦4,000/kg</div>
+                    <p class="description">Fine cassava flour for baking.</p>
+                    <button data-id="a6" data-name="Cassava Flour" data-price="4000">Add to Cart</button>
+                </div>
+            </div>
+        </section>
+        <section class="section" id="ruminant">
+            <h2 class="section-title">Ruminant Production</h2>
+            <p>High-quality meat and dairy from ethically raised ruminants.</p>
+            <div class="product-grid">
+                <div class="product-card">
+                    <div class="image-wrapper">
+                        <img src="https://i.pinimg.com/736x/b0/c5/06/b0c50610e1fb1edb433028d2c86c5b8b.jpg" alt="Goat Meat" loading="lazy">
+                    </div>
+                    <h3>Goat Meat</h3>
+                    <div class="price">₦22,000/kg</div>
+                    <p class="description">Lean, tender goat meat.</p>
+                    <button data-id="r1" data-name="Goat Meat" data-price="22000">Add to Cart</button>
+                </div>
+                <div class="product-card">
+                    <div class="image-wrapper">
+                        <img src="https://i.pinimg.com/736x/f1/db/28/f1db289186b6dafbf9bc3bb4fbc22935.jpg" alt="Beef" loading="lazy">
+                    </div>
+                    <h3>Beef</h3>
+                    <div class="price">₦25,000/kg</div>
+                    <p class="description">Premium grass-fed beef.</p>
+                    <button data-id="r2" data-name="Beef" data-price="25000">Add to Cart</button>
+                </div>
+                <div class="product-card">
+                    <div class="image-wrapper">
+                        <img src="https://i.pinimg.com/736x/ee/16/c3/ee16c332dd37b322b5b467f7188ec742.jpg" alt="Lamb" loading="lazy">
+                    </div>
+                    <h3>Lamb</h3>
+                    <div class="price">₦23,500/kg</div>
+                    <p class="description">Succulent lamb cuts.</p>
+                    <button data-id="r3" data-name="Lamb" data-price="23500">Add to Cart</button>
+                </div>
+                <div class="product-card">
+                    <div class="image-wrapper">
+                        <img src="https://i.pinimg.com/736x/0a/d5/10/0ad510a3b70bab97c27d2e61a1d71440.jpg" alt="Fresh Milk" loading="lazy">
+                    </div>
+                    <h3>Fresh Milk</h3>
+                    <div class="price">₦6,500/litre</div>
+                    <p class="description">Pasteurized cow milk.</p>
+                    <button data-id="r4" data-name="Fresh Milk" data-price="6500">Add to Cart</button>
+                </div>
+                <div class="product-card">
+                    <div class="image-wrapper">
+                        <img src="https://i.pinimg.com/736x/97/30/df/9730dfadcc32a6972d9e083a5296afff.jpg" alt="Yogurt" loading="lazy">
+                    </div>
+                    <h3>Yogurt</h3>
+                    <div class="price">₦5,000/litre</div>
+                    <p class="description">Natural, probiotic-rich yogurt.</p>
+                    <button data-id="r5" data-name="Yogurt" data-price="5000">Add to Cart</button>
+                </div>
+                <div class="product-card">
+                    <div class="image-wrapper">
+                        <img src="https://i.pinimg.com/1200x/8b/5d/61/8b5d6142eaaf50f09ab0235326ab5234.jpg" alt="Cheese" loading="lazy">
+                    </div>
+                    <h3>Cheese</h3>
+                    <div class="price">₦8,000/kg</div>
+                    <p class="description">Farm-made cheddar cheese.</p>
+                    <button data-id="r6" data-name="Cheese" data-price="8000">Add to Cart</button>
+                </div>
+            </div>
+        </section>
+        <section class="section" id="agronomy">
+            <h2 class="section-title">Agronomy</h2>
+            <p>Fresh, organic vegetables and crops grown sustainably.</p>
+            <div class="product-grid">
+                <div class="product-card">
+                    <div class="image-wrapper">
+                        <img src="https://i.pinimg.com/736x/ca/d8/f3/cad8f359d0c6adc7d2af204a75cd9f97.jpg" alt="Tomatoes" loading="lazy">
+                    </div>
+                    <h3>Tomatoes</h3>
+                    <div class="price">₦3,500/kg</div>
+                    <p class="description">Ripe, juicy organic tomatoes.</p>
+                    <button data-id="ag1" data-name="Tomatoes" data-price="3500">Add to Cart</button>
+                </div>
+                <div class="product-card">
+                    <div class="image-wrapper">
+                        <img src="https://i.pinimg.com/736x/17/1a/86/171a867cf8e48380d55de75f643f94a8.jpg" alt="Bell Peppers" loading="lazy">
+                    </div>
+                    <h3>Bell Peppers</h3>
+                    <div class="price">₦4,200/kg</div>
+                    <p class="description">Colorful, crisp bell peppers.</p>
+                    <button data-id="ag2" data-name="Bell Peppers" data-price="4200">Add to Cart</button>
+                </div>
+                <div class="product-card">
+                    <div class="image-wrapper">
+                        <img src="https://i.pinimg.com/736x/09/2b/28/092b28de2906261662f0a9d9e294f452.jpg" alt="Spinach" loading="lazy">
+                    </div>
+                    <h3>Spinach</h3>
+                    <div class="price">₦2,800/kg</div>
+                    <p class="description">Fresh, leafy green spinach.</p>
+                    <button data-id="ag3" data-name="Spinach" data-price="2800">Add to Cart</button>
+                </div>
+                <div class="product-card">
+                    <div class="image-wrapper">
+                        <img src="https://i.pinimg.com/736x/ae/df/80/aedf8000c331306fe94eea20b023ceb1.jpg" alt="Carrots" loading="lazy">
+                    </div>
+                    <h3>Carrots</h3>
+                    <div class="price">₦3,000/kg</div>
+                    <p class="description">Sweet, crunchy organic carrots.</p>
+                    <button data-id="ag4" data-name="Carrots" data-price="3000">Add to Cart</button>
+                </div>
+                <div class="product-card">
+                    <div class="image-wrapper">
+                        <img src="https://i.pinimg.com/736x/88/6a/c7/886ac743548fd72f003d8b9f106b2d69.jpg" alt="Yam" loading="lazy">
+                    </div>
+                    <h3>Yam</h3>
+                    <div class="price">₦4,500/kg</div>
+                    <p class="description">Wholesome, starchy yam tubers.</p>
+                    <button data-id="ag5" data-name="Yam" data-price="4500">Add to Cart</button>
+                </div>
+                <div class="product-card">
+                    <div class="image-wrapper">
+                        <img src="https://i.pinimg.com/736x/50/ae/e9/50aee9ffd873c8bea94528a1cb4a8192.jpg" alt="Cassava" loading="lazy">
+                    </div>
+                    <h3>Cassava</h3>
+                    <div class="price">₦3,000/kg</div>
+                    <p class="description">Fresh cassava roots.</p>
+                    <button data-id="ag6" data-name="Cassava" data-price="3000">Add to Cart</button>
+                </div>
+            </div>
+        </section>
+        <section class="section" id="animal-feed">
+            <h2 class="section-title">Animal Feed Sales</h2>
+            <p>Nutritious feeds for healthy livestock growth.</p>
+            <div class="product-grid">
+                <div class="product-card">
+                    <div class="image-wrapper">
+                        <img src="https://i.pinimg.com/736x/f9/3a/12/f93a122ec6c24f0b4ce7e2bea64b948b.jpg" alt="Poultry Feed" loading="lazy">
+                    </div>
+                    <h3>Poultry Feed</h3>
+                    <div class="price">₦9,500/25kg</div>
+                    <p class="description">Balanced feed for layers and broilers.</p>
+                    <button data-id="f1" data-name="Poultry Feed" data-price="9500">Add to Cart</button>
+                </div>
+                <div class="product-card">
+                    <div class="image-wrapper">
+                        <img src="https://i.pinimg.com/736x/33/a3/c4/33a3c43e331738cb9c471e6efc84e256.jpg" alt="Fish Feed" loading="lazy">
+                    </div>
+                    <h3>Fish Feed</h3>
+                    <div class="price">₦11,000/25kg</div>
+                    <p class="description">High-protein feed for catfish and tilapia.</p>
+                    <button data-id="f2" data-name="Fish Feed" data-price="11000">Add to Cart</button>
+                </div>
+                <div class="product-card">
+                    <div class="image-wrapper">
+                        <img src="https://i.pinimg.com/736x/58/b1/99/58b199248afe1433efc86a8d48d233bc.jpg" alt="Cattle Feed" loading="lazy">
+                    </div>
+                    <h3>Cattle Feed</h3>
+                    <div class="price">₦10,500/25kg</div>
+                    <p class="description">Nutrient-rich feed for cattle.</p>
+                    <button data-id="f3" data-name="Cattle Feed" data-price="10500">Add to Cart</button>
+                </div>
+                <div class="product-card">
+                    <div class="image-wrapper">
+                        <img src="https://i.pinimg.com/736x/a7/a2/f4/a7a2f427a770a8ddf00573e53ca2a0e0.jpg" alt="Goat Feed" loading="lazy">
+                    </div>
+                    <h3>Goat Feed</h3>
+                    <div class="price">₦10,000/25kg</div>
+                    <p class="description">Specialized feed for goats.</p>
+                    <button data-id="f4" data-name="Goat Feed" data-price="10000">Add to Cart</button>
+                </div>
+                <div class="product-card">
+                    <div class="image-wrapper">
+                        <img src="https://i.pinimg.com/736x/78/15/6a/78156ae131dd80fc6c2cdf31dd685cfa.jpg" alt="Pig Feed" loading="lazy">
+                    </div>
+                    <h3>Pig Feed</h3>
+                    <div class="price">₦9,800/25kg</div>
+                    <p class="description">Complete feed for pigs.</p>
+                    <button data-id="f5" data-name="Pig Feed" data-price="9800">Add to Cart</button>
+                </div>
+                <div class="product-card">
+                    <div class="image-wrapper">
+                        <img src="https://i.pinimg.com/736x/05/d5/db/05d5db5ac7246584d359568e402867fb.jpg" alt="Layer Feed" loading="lazy">
+                    </div>
+                    <h3>Layer Feed</h3>
+                    <div class="price">₦10,200/25kg</div>
+                    <p class="description">Calcium-enriched feed for laying hens.</p>
+                    <button data-id="f6" data-name="Layer Feed" data-price="10200">Add to Cart</button>
+                </div>
+            </div>
+        </section>
+        <section class="section" id="aquaculture">
+            <h2 class="section-title">Aquaculture</h2>
+            <p>Fresh and sustainable seafood from our farms.</p>
+            <div class="product-grid">
+                <div class="product-card">
+                    <div class="image-wrapper">
+                        <img src="https://i.pinimg.com/1200x/b7/bd/f8/b7bdf89ee5380d9542b8eada530c79f0.jpg" alt="Catfish" loading="lazy">
+                    </div>
+                    <h3>Catfish</h3>
+                    <div class="price">₦7,500/kg</div>
+                    <p class="description">Fresh, live catfish.</p>
+                    <button data-id="aq1" data-name="Catfish" data-price="7500">Add to Cart</button>
+                </div>
+                <div class="product-card">
+                    <div class="image-wrapper">
+                        <img src="https://i.pinimg.com/736x/ad/99/99/ad9999008f9a9aec0852ee0ce8324887.jpg" alt="Tilapia" loading="lazy">
+                    </div>
+                    <h3>Tilapia</h3>
+                    <div class="price">₦6,800/kg</div>
+                    <p class="description">Farm-raised tilapia.</p>
+                    <button data-id="aq2" data-name="Tilapia" data-price="6800">Add to Cart</button>
+                </div>
+                <div class="product-card">
+                    <div class="image-wrapper">
+                        <img src="https://i.pinimg.com/1200x/e1/fb/d2/e1fbd2a9bf224558ff74dfccd4562a33.jpg" alt="Smoked Catfish" loading="lazy">
+                    </div>
+                    <h3>Smoked Catfish</h3>
+                    <div class="price">₦9,000/kg</div>
+                    <p class="description">Traditionally smoked catfish.</p>
+                    <button data-id="aq3" data-name="Smoked Catfish" data-price="9000">Add to Cart</button>
+                </div>
+                <div class="product-card">
+                    <div class="image-wrapper">
+                        <img src="https://i.pinimg.com/1200x/44/93/3d/44933d1f85d4704b529062648358ac18.jpg" alt="Shrimp" loading="lazy">
+                    </div>
+                    <h3>Shrimp</h3>
+                    <div class="price">₦12,000/kg</div>
+                    <p class="description">Fresh, farm-grown shrimp.</p>
+                    <button data-id="aq4" data-name="Shrimp" data-price="12000">Add to Cart</button>
+                </div>
+                <div class="product-card">
+                    <div class="image-wrapper">
+                        <img src="https://i.pinimg.com/736x/51/79/c2/5179c20dbb2825fce69834ca4ce8c357.jpg" alt="Fish Fingerlings" loading="lazy">
+                    </div>
+                    <h3>Fish Fingerlings</h3>
+                    <div class="price">₦150/unit</div>
+                    <p class="description">Healthy fingerlings for stocking.</p>
+                    <button data-id="aq5" data-name="Fish Fingerlings" data-price="150">Add to Cart</button>
+                </div>
+                <div class="product-card">
+                    <div class="image-wrapper">
+                        <img src="https://i.pinimg.com/1200x/d0/80/e1/d080e1d5d8d2cda52542b32ab326d1cb.jpg" alt="Catfish Fry" loading="lazy">
+                    </div>
+                    <h3>Catfish Fry</h3>
+                    <div class="price">₦100/unit</div>
+                    <p class="description">Vibrant catfish fry for aquaculture.</p>
+                    <button data-id="aq6" data-name="Catfish Fry" data-price="100">Add to Cart</button>
+                </div>
+            </div>
+        </section>
+    </main>
+    <!-- Cart Modal -->
+    <div id="cart-modal">
+        <div class="cart-container">
+            <span class="cart-close"><i class="fas fa-times"></i></span>
+            <h2>Your Farm Haul</h2>
+            <ul id="cart-items"></ul>
+            <p id="cart-total">Total: ₦0.00</p>
+            <div class="cart-actions">
+                <button onclick="showCheckout()">Proceed to Checkout</button>
+                <button class="cancel">Continue Shopping</button>
+            </div>
+        </div>
+    </div>
+    <!-- Checkout Modal -->
+    <div id="checkout-modal">
+        <div class="checkout-container">
+            <span class="checkout-close"><i class="fas fa-times"></i></span>
+            <h2>Complete Your Order</h2>
+            <div id="order-summary"></div>
+            <div class="bank-details">
+                <h3>Make Payment to Any of These Accounts</h3>
+                <div class="bank-card">
+                    <p><strong>Bank:</strong> First Bank</p>
+                    <p><strong>Account Number:</strong> 3199605670 <button class="copy-btn" data-text="3199605670">Copy</button></p>
+                    <p><strong>Name:</strong> Alade Omotayo David</p>
+                </div>
+                <div class="bank-card">
+                    <p><strong>Bank:</strong> Opay</p>
+                    <p><strong>Account Number:</strong> 9120800600 <button class="copy-btn" data-text="9120800600">Copy</button></p>
+                    <p><strong>Name:</strong> King's Farm and Foods</p>
+                </div>
+                <div class="bank-card">
+                    <p><strong>Bank:</strong> UBA</p>
+                    <p><strong>Account Number:</strong> 2143009690 <button class="copy-btn" data-text="2143009690">Copy</button></p>
+                    <p><strong>Name:</strong> Alade Omotayo David</p>
+                </div>
+            </div>
+            <form class="checkout-form" id="checkout-form" action="https://getform.io/f/brookxya" method="POST" enctype="multipart/form-data">
+                <div class="file-upload">
+                    <i class="fas fa-upload"></i>
+                    <label for="proof">Upload Proof of Payment (Image or PDF)</label>
+                    <input type="file" id="proof" name="proof" accept="image/*,application/pdf" required>
+                </div>
+                <input type="hidden" name="cart_items" id="cart-items-input">
+                <input type="hidden" name="total" id="cart-total-input">
+                <input type="hidden" name="whatsapp_message" id="whatsapp-message-input">
+                <div class="actions">
+                    <button type="submit">Submit Proof</button>
+                    <button type="button" onclick="sendToWhatsApp()">Continue on WhatsApp</button>
+                    <button type="button" class="cancel">Cancel</button>
+                </div>
+                <div id="checkout-message"></div>
+            </form>
+        </div>
+    </div>
+    <!-- Bottom Navigation -->
+    <nav class="bottom-nav">
+        <ul>
+            <li onclick="window.location.href='index.html'">
+                <i class="fas fa-home"></i>
+                <span>Home</span>
+            </li>
+            <li class="active" onclick="window.location.href='shop.html'">
+                <i class="fas fa-store"></i>
+                <span>Shop</span>
+            </li>
+            <li onclick="window.location.href='blog.html'">
+                <i class="fas fa-newspaper"></i>
+                <span>Blog</span>
+            </li>
+            <li id="more-trigger">
+                <i class="fas fa-ellipsis-h"></i>
+                <span>More</span>
+            </li>
+        </ul>
+    </nav>
+    <!-- Overlay for Bottom Sheet -->
+    <div class="sheet-overlay" id="sheet-overlay"></div>
+    <!-- More Bottom Sheet -->
+    <div id="more-sheet">
+        <div class="sheet-handle"></div>
+        <div class="sheet-menu">
+            <a href="about.html"><i class="fas fa-info-circle"></i> About Us</a>
+            <a href="recipes.html"><i class="fas fa-utensils"></i> Recipes</a>
+            <a href="care-tips.html"><i class="fas fa-seedling"></i> Care & Tips</a>
+            <a href="contact.html"><i class="fas fa-envelope"></i> Contact</a>
+            <button id="mobile-dark-mode-toggle">
+                <i class="fas fa-moon"></i> Dark Mode
+            </button>
+        </div>
+    </div>
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div>
+                <h3>King's Farms and Foods</h3>
+                <p><i class="fas fa-map-marker-alt"></i> 12,Onyejekwe street,Talavic road,Itoki-Dalemo,Alakuko,Lagos State</p>
+                <p><i class="fas fa-globe"></i> We ship across Nigeria!</p>
+                <p><i class="fas fa-phone-alt"></i> +234 912 080 0600</p>
+                <p><i class="fas fa-envelope"></i> kingsfarms18@gmail.com</p>
+                <p><i class="fas fa-clock"></i> Mon-Fri: 8am-5pm, Sat: 9am-3pm (WAT)</p>
+            </div>
+            <div>
+                <h3>Quick Links</h3>
+                <p><a href="index.html">Home</a></p>
+                <p><a href="about.html">About</a></p>
+                <p><a href="shop.html">Shop</a></p>
+                <p><a href="contact.html">Contact</a></p>
+                <p><a href="blog.html">Blog</a></p>
+            </div>
+            <div>
+                <h3>Explore More</h3>
+                <p><a href="#">Farming Tips</a></p>
+                <p><a href="#">Recipes</a></p>
+                <p><a href="#">Customer Stories</a></p>
+                <p><a href="#">Newsletter Signup</a></p>
+            </div>
+            <div>
+                <h3>Follow Us</h3>
+                <div class="social-icons">
+                    <a href="https://tiktok.com/@david_reign1"><i class="fab fa-tiktok"></i></a>
+                    <a href="https://twitter.com/kingsfarm_ng"><i class="fab fa-twitter"></i></a>
+                    <a href="https://facebook.com/kingsfarmsfoods"><i class="fab fa-facebook-f"></i></a>
+                    <a href="https://instagram.com/kingsfarm_ng"><i class="fab fa-instagram"></i></a>
+                    <a href="https://wa.me/+2349120800600"><i class="fab fa-whatsapp"></i></a>
+                </div>
+                <h3 style="margin-top: 1.5rem;">Newsletter</h3>
+                <form id="newsletter-form" action="https://getform.io/f/brookxya" method="POST">
+                    <input type="email" name="email" placeholder="Your Email" required>
+                    <button type="submit">Join Our Community!</button>
+                    <div class="form-message"></div>
+                </form>
+            </div>
+        </div>
+        <div class="back-to-top">
+            <a href="#"><i class="fas fa-arrow-up"></i> Back to Top</a>
+        </div>
+        <div class="copyright">
+            &copy; 2025 King's Farms and Foods. All rights reserved.
+        </div>
+    </footer>
+    <script>
+        // Initialize cart globally
+        let cart = JSON.parse(localStorage.getItem('cart')) || { items: [] };
+        // Copy to Clipboard function
+        function copyToClipboard(text, button) {
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(text).then(() => {
+                    showCopyNotification();
+                    button.classList.add('copied');
+                    button.textContent = 'Copied!';
+                    setTimeout(() => {
+                        button.classList.remove('copied');
+                        button.textContent = 'Copy';
+                    }, 2000);
+                }).catch(err => {
+                    console.error('Clipboard API failed:', err);
+                    fallbackCopy(text, button);
+                });
+            } else {
+                fallbackCopy(text, button);
+            }
+        }
+        // Fallback Copy function
+        function fallbackCopy(text, button) {
+            const textarea = document.createElement('textarea');
+            textarea.value = text;
+            textarea.style.position = 'fixed';
+            textarea.style.opacity = '0';
+            document.body.appendChild(textarea);
+            textarea.select();
+            try {
+                document.execCommand('copy');
+                showCopyNotification();
+                button.classList.add('copied');
+                button.textContent = 'Copied!';
+                setTimeout(() => {
+                    button.classList.remove('copied');
+                    button.textContent = 'Copy';
+                }, 2000);
+            } catch (err) {
+                console.error('Fallback copy failed:', err);
+                alert('Failed to copy. Please copy manually: ' + text);
+            } finally {
+                document.body.removeChild(textarea);
+            }
+        }
+        // Show copy notification
+        function showCopyNotification() {
+            const notification = document.getElementById('copy-notification');
+            notification.textContent = 'Account number copied!';
+            notification.style.display = 'block';
+            setTimeout(() => notification.style.display = 'none', 2000);
+        }
+        // Add to Cart function
+        function addToCart(id, name, price) {
+            const parsedPrice = parseFloat(price);
+            let item = cart.items.find(i => i.id === id);
+            if (item) {
+                item.quantity += 1;
+            } else {
+                cart.items.push({ id, name, price: parsedPrice, quantity: 1 });
+            }
+            localStorage.setItem('cart', JSON.stringify(cart));
+            updateCartDisplay();
+            // Show notification
+            const notification = document.getElementById('cart-notification');
+            notification.textContent = `${name} added to cart!`;
+            notification.style.display = 'block';
+            setTimeout(() => notification.style.display = 'none', 2000);
+        }
+        // Update cart display
+        function updateCartDisplay() {
+            let cartCount = document.getElementById('cart-count');
+            let cartItems = document.getElementById('cart-items');
+            let cartTotal = document.getElementById('cart-total');
+            cartItems.innerHTML = cart.items.length === 0 
+                ? '<li style="text-align: center; font-style: italic; padding: 2rem;">Your cart is empty.</li>'
+                : cart.items.map(item => `
+                    <li>
+                        <span>${item.name} - ₦${item.price.toFixed(2)} x ${item.quantity}</span>
+                        <div class="quantity-controls">
+                            <button onclick="updateQuantity('${item.id}', -1)">-</button>
+                            <button onclick="updateQuantity('${item.id}', 1)">+</button>
+                            <button class="remove" onclick="removeItem('${item.id}')">Remove</button>
+                        </div>
+                    </li>
+                `).join('');
+            cartTotal.textContent = `Total: ₦${cart.items.reduce((sum, i) => sum + i.price * i.quantity, 0).toFixed(2)}`;
+            cartCount.textContent = cart.items.reduce((sum, i) => sum + i.quantity, 0);
+        }
+        // Update quantity
+        function updateQuantity(id, change) {
+            let item = cart.items.find(i => i.id === id);
+            if (item) {
+                item.quantity += change;
+                if (item.quantity <= 0) {
+                    cart.items = cart.items.filter(i => i.id !== id);
+                }
+                localStorage.setItem('cart', JSON.stringify(cart));
+                updateCartDisplay();
+            }
+        }
+        // Remove item
+        function removeItem(id) {
+            cart.items = cart.items.filter(i => i.id !== id);
+            localStorage.setItem('cart', JSON.stringify(cart));
+            updateCartDisplay();
+        }
+        // Show checkout modal
+        function showCheckout() {
+            if (cart.items.length === 0) {
+                alert('Your cart is empty! Add some items before checking out.');
+                return;
+            }
+            document.getElementById('cart-modal').style.display = 'none';
+            const checkoutModal = document.getElementById('checkout-modal');
+            const orderSummary = document.getElementById('order-summary');
+            orderSummary.innerHTML = `
+                <h3>Order Summary</h3>
+                <ul>
+                    ${cart.items.map(item => `
+                        <li>${item.name} - ₦${item.price.toFixed(2)} x ${item.quantity}</li>
+                    `).join('')}
+                </ul>
+                <p><strong>Total:</strong> ₦${cart.items.reduce((sum, i) => sum + i.price * i.quantity, 0).toFixed(2)}</p>
+            `;
+            checkoutModal.style.display = 'flex';
+        }
+        // Send order to WhatsApp
+        function sendToWhatsApp() {
+            const total = cart.items.reduce((sum, i) => sum + i.price * i.quantity, 0).toFixed(2);
+            const message = `Order Details:
+${cart.items.map(item => `${item.name} - ${item.quantity} x ₦${item.price.toFixed(2)}`).join('\n')}
+Total: ₦${total}
+Please provide delivery details.`;
+            const encodedMessage = encodeURIComponent(message);
+            const whatsappNumber = '+2349120800600';
+            const whatsappUrl = `https://api.whatsapp.com/send?phone=${whatsappNumber}&text=${encodedMessage}`;
+            document.getElementById('whatsapp-message-input').value = message;
+            window.open(whatsappUrl, '_blank');
+            const checkoutMessage = document.getElementById('checkout-message');
+            checkoutMessage.innerHTML = '<p style="color: var(--success);">Order sent to WhatsApp! Please provide delivery details there.</p>';
+        }
+        // Toggle More Sheet
+        function toggleMoreSheet() {
+            const sheet = document.getElementById('more-sheet');
+            const overlay = document.getElementById('sheet-overlay');
+            sheet.classList.toggle('active');
+            overlay.classList.toggle('active');
+        }
+        // Close More Sheet
+        function closeMoreSheet() {
+            const sheet = document.getElementById('more-sheet');
+            const overlay = document.getElementById('sheet-overlay');
+            sheet.classList.remove('active');
+            overlay.classList.remove('active');
+        }
+        // Dark mode toggle for mobile
+        function toggleMobileDarkMode() {
+            document.body.classList.toggle('dark-mode');
+            const icon = document.querySelector('#mobile-dark-mode-toggle i');
+            if (document.body.classList.contains('dark-mode')) {
+                icon.className = 'fas fa-sun';
+                localStorage.setItem('darkMode', 'enabled');
+            } else {
+                icon.className = 'fas fa-moon';
+                localStorage.setItem('darkMode', 'disabled');
+            }
+        }
+        // Event Listeners
+        document.addEventListener('DOMContentLoaded', () => {
+            // Initialize cart display
+            updateCartDisplay();
+
+            // Add to Cart function - Shows notification only (doesn't open cart modal)
+function addToCart(id, name, price) {
+    const parsedPrice = parseFloat(price);
+    let item = cart.items.find(i => i.id === id);
+    if (item) {
+        item.quantity += 1;
+    } else {
+        cart.items.push({ id, name, price: parsedPrice, quantity: 1 });
+    }
+    localStorage.setItem('cart', JSON.stringify(cart));
+    updateCartDisplay();
+    
+    // Show notification only - don't open cart modal
+    showCartNotification(`${name} added to cart!`);
+}
+
+// Show cart notification function
+function showCartNotification(message) {
+    const notification = document.getElementById('cart-notification');
+    notification.textContent = message;
+    notification.style.display = 'block';
+    
+    // Add animation class
+    notification.classList.add('show');
+    
+    // Hide after 2 seconds
+    setTimeout(() => {
+        notification.classList.remove('show');
+        setTimeout(() => {
+            notification.style.display = 'none';
+        }, 300);
+    }, 2000);
+}
+
+// Update cart display (keep this to update cart count)
+function updateCartDisplay() {
+    let cartCount = document.getElementById('cart-count');
+    let cartItems = document.getElementById('cart-items');
+    let cartTotal = document.getElementById('cart-total');
+    
+    cartItems.innerHTML = cart.items.length === 0
+        ? '<li style="text-align: center; font-style: italic; padding: 2rem;">Your cart is empty.</li>'
+        : cart.items.map(item => `
+            <li>
+                <span>${item.name} - ₦${item.price.toFixed(2)} x ${item.quantity}</span>
+                <div class="quantity-controls">
+                    <button onclick="updateQuantity('${item.id}', -1)">-</button>
+                    <button onclick="updateQuantity('${item.id}', 1)">+</button>
+                    <button class="remove" onclick="removeItem('${item.id}')">Remove</button>
+                </div>
+            </li>
+        `).join('');
+        
+    cartTotal.textContent = `Total: ₦${cart.items.reduce((sum, i) => sum + i.price * i.quantity, 0).toFixed(2)}`;
+    cartCount.textContent = cart.items.reduce((sum, i) => sum + i.quantity, 0);
+}
+            // Add to cart buttons - Only shows notification, doesn't open cart modal
+document.querySelectorAll('.product-card button').forEach(button => {
+    button.addEventListener('click', () => {
+        const id = button.dataset.id;
+        const name = button.dataset.name;
+        const price = button.dataset.price;
+        addToCart(id, name, price);
+        // Cart modal will NOT open automatically
+    });
+});
+
+            // Copy buttons for bank details
+            document.querySelectorAll('.copy-btn').forEach(button => {
+                button.addEventListener('click', () => {
+                    const text = button.dataset.text;
+                    copyToClipboard(text, button);
+                });
+            });
+            // Cart icon click
+            document.querySelector('.cart-icon').addEventListener('click', () => {
+                document.getElementById('cart-modal').style.display = 'flex';
+            });
+            // Close modal buttons
+            document.querySelectorAll('.cart-close, .checkout-close, .cart-actions .cancel, .checkout-form .cancel').forEach(button => {
+                button.addEventListener('click', () => {
+                    document.getElementById('cart-modal').style.display = 'none';
+                    document.getElementById('checkout-modal').style.display = 'none';
+                });
+            });
+            // More button and sheet
+            document.getElementById('more-trigger').addEventListener('click', toggleMoreSheet);
+            document.getElementById('sheet-overlay').addEventListener('click', closeMoreSheet);
+            document.getElementById('mobile-dark-mode-toggle').addEventListener('click', toggleMobileDarkMode);
+            // Close sheet with Escape key
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') {
+                    closeMoreSheet();
+                }
+            });
+            // Dark mode toggle (desktop)
+            document.getElementById('dark-mode-toggle').addEventListener('click', () => {
+                document.body.classList.toggle('dark-mode');
+                const icon = document.getElementById('dark-mode-toggle');
+                if (document.body.classList.contains('dark-mode')) {
+                    icon.innerHTML = '<i class="fas fa-sun"></i>';
+                    localStorage.setItem('darkMode', 'enabled');
+                } else {
+                    icon.innerHTML = '<i class="fas fa-moon"></i>';
+                    localStorage.setItem('darkMode', 'disabled');
+                }
+            });
+            // Check for saved dark mode preference
+            if (localStorage.getItem('darkMode') === 'enabled') {
+                document.body.classList.add('dark-mode');
+                document.getElementById('dark-mode-toggle').innerHTML = '<i class="fas fa-sun"></i>';
+                document.querySelector('#mobile-dark-mode-toggle i').className = 'fas fa-sun';
+            }
+            // Hero carousel
+            const slides = document.querySelectorAll('.hero-slide');
+            let currentSlide = 0;
+            function showSlide(index) {
+                slides.forEach((slide, i) => {
+                    slide.classList.toggle('active', i === index);
+                });
+            }
+            setInterval(() => {
+                currentSlide = (currentSlide + 1) % slides.length;
+                showSlide(currentSlide);
+            }, 5000);
+            // Scroll animations
+            const sections = document.querySelectorAll('.section');
+            const observer = new IntersectionObserver(entries => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, { threshold: 0.1 });
+            sections.forEach(section => observer.observe(section));
+            // Checkout form submission
+            document.getElementById('checkout-form').addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const form = e.target;
+                const submitButton = form.querySelector('button[type="submit"]');
+                const messageDiv = document.getElementById('checkout-message');
+                // Add loading state
+                submitButton.classList.add('loading');
+                submitButton.disabled = true;
+                // Prepare form data
+                const formData = new FormData(form);
+                formData.set('cart_items', JSON.stringify(cart.items));
+                formData.set('total', cart.items.reduce((sum, i) => sum + i.price * i.quantity, 0).toFixed(2));
+                try {
+                    const response = await fetch(form.action, {
+                        method: 'POST',
+                        body: formData
+                    });
+                    if (response.ok) {
+                        messageDiv.innerHTML = '<p style="color: var(--success);">Proof of payment submitted successfully!</p>';
+                        form.reset();
+                        cart.items = [];
+                        localStorage.setItem('cart', JSON.stringify(cart));
+                        updateCartDisplay();
+                        setTimeout(() => {
+                            document.getElementById('checkout-modal').style.display = 'none';
+                        }, 2000);
+                    } else {
+                        messageDiv.innerHTML = '<p style="color: var(--error);">Failed to submit proof. Please try again.</p>';
+                    }
+                } catch (error) {
+                    console.error('Submission error:', error);
+                    messageDiv.innerHTML = '<p style="color: var(--error);">An error occurred. Please try again.</p>';
+                } finally {
+                    submitButton.classList.remove('loading');
+                    submitButton.disabled = false;
+                }
+            });
+            // Newsletter form submission
+            document.getElementById('newsletter-form').addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const form = e.target;
+                const messageDiv = form.querySelector('.form-message');
+                const submitButton = form.querySelector('button');
+                submitButton.classList.add('loading');
+                submitButton.disabled = true;
+                try {
+                    const response = await fetch(form.action, {
+                        method: 'POST',
+                        body: new FormData(form)
+                    });
+                    if (response.ok) {
+                        messageDiv.textContent = 'Thank you for subscribing!';
+                        messageDiv.classList.add('success');
+                        form.reset();
+                    } else {
+                        messageDiv.textContent = 'Subscription failed. Please try again.';
+                        messageDiv.classList.add('error');
+                    }
+                } catch (error) {
+                    console.error('Newsletter error:', error);
+                    messageDiv.textContent = 'An error occurred. Please try again.';
+                    messageDiv.classList.add('error');
+                } finally {
+                    submitButton.classList.remove('loading');
+                    submitButton.disabled = false;
+                    setTimeout(() => {
+                        messageDiv.textContent = '';
+                        messageDiv.classList.remove('success', 'error');
+                    }, 5000);
+                }
+            });
+        });
+    </script>
+</body>
+</html>
+
